@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ImplementationGuide xmlns="http://hl7.org/fhir">
+  <id value="ig"/>
+  <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource">
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/PRO-21CFR11-IG/source/resources"/>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource">
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/PRO-21CFR11-IG/source/examples"/>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages">
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/PRO-21CFR11-IG/framework"/>
+  </extension>
+  <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages">
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/PRO-21CFR11-IG/source/pages"/>
+  </extension>
+  <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig"/>
+  <version value="0.2.0"/>
+  <name value="PatientReportedOutcomes"/>
+  <title value="Patient Reported Outcomes"/>
+  <status value="draft"/>
+  <publisher value="HL7 International - FHIR Infrastructure Work Group"/>
+  <contact>
+    <telecom>
+      <system value="other"/>
+      <value value="http://hl7.org/Special/committees/fiwg"/>
+    </telecom>
+  </contact>
+  <copyright value="Used by permission of HL7, all rights reserved Creative Commons License"/>
+  <packageId value="hl7.fhir.us.patient-reported-outcomes"/>
+  <license value="CC0-1.0"/>
+  <fhirVersion value="4.0.0"/>
+  <fhirVersion value="4.0.1"/>
+  <dependsOn id="sdc">
+    <uri value="http://hl7.org/fhir/uv/sdc"/>
+    <packageId value="hl7.fhir.uv.sdc"/>
+    <version value="current"/>
+  </dependsOn>
+  <dependsOn id="uscoreR4">
+    <uri value="http://hl7.org/fhir/us/core"/>
+    <packageId value="hl7.fhir.us.core"/>
+    <version value="current"/>
+  </dependsOn>
+  <definition>
+    <resource>
+      <reference>
+        <reference value="CapabilityStatement/server"/>
+      </reference>
+      <exampleBoolean value="false"/>
+    </resource>
+    <page>
+      <nameUrl value="index.md"/>
+      <title value="PRO Homepage"/>
+      <generation value="markdown"/>
+    </page>
+    <parameter>
+      <code value="apply"/>
+      <value value="version"/>
+    </parameter>
+    <parameter>
+      <code value="html-template"/>
+      <value value="html-template.html"/>
+    </parameter>
+    <parameter>
+      <code value="generate"/>
+      <value value="xml"/>
+    </parameter>
+    <parameter>
+      <code value="generate"/>
+      <value value="JSON"/>
+    </parameter>
+  </definition>
+</ImplementationGuide>
