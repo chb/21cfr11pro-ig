@@ -10,7 +10,7 @@
   <name value="PatientReportedOutcomes"/>
   <title value="Patient Reported Outcomes"/>
   <status value="draft"/>
-  <date value="2019-12-30T14:40:17+11:00"/>
+  <date value="2019-12-31T07:00:54+11:00"/>
   <publisher value="HL7 International - FHIR Infrastructure Work Group"/>
   <contact>
     <telecom>
@@ -25,12 +25,12 @@
   <dependsOn>
     <uri value="http://hl7.org/fhir/uv/sdc"/>
     <packageId value="hl7.fhir.uv.sdc"/>
-    <version value="2.8.0"/>
+    <version value="current"/>
   </dependsOn>
   <dependsOn>
     <uri value="http://hl7.org/fhir/us/core"/>
     <packageId value="hl7.fhir.us.core"/>
-    <version value="3.1.0"/>
+    <version value="current"/>
   </dependsOn>
   <definition>
     <resource>
