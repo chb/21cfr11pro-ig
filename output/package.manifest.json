@@ -1,6 +1,6 @@
 {
-  "version": "0.2.0",
-  "fhirVersion": "[4.0.0]",
-  "date": "20191231070036",
-  "name": "hl7.fhir.us.patient-reported-outcomes"
+  "version": "0.0.1",
+  "fhirVersion": "[4.0.1]",
+  "date": "20200102150304",
+  "name": "hl7.fhir.us.patient-reported-outcomes-21cfr11"
 }

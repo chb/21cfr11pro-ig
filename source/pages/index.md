@@ -1,5 +1,5 @@
 ---
-title: Patient Reported Outcomes FHIR Implementation Guide
+title: Patient Reported Outcomes 21 CFR 11 Compliance FHIR Implementation Guide 
 layout: default
 active: home
 ---
@@ -17,15 +17,19 @@ active: home
 
 ###  Introduction
 
-The Patient Reported Outcomes (PRO) FHIR Implementation Guide (IG) will focus on capturing and exchanging patient reported outcome data electronically using the FHIR standard. The data that is captured will be made available to both providers and authorized researchers. While the PRO FHIR IG can be applied to multiple use cases, the current requirements have been drawn from [PCORnet](https://pcornet.org/) use cases and implementations. The capabilities described as part of the IG are intended to be leveraged to build US data infrastructure for a Learning Health System (LHS).
+This Patient Reported Outcomes 21 CFR 11 Compliance FHIR Implementation Guide complements the Patient Reported Outcomes (PRO) FHIR Implementation Guide (IG) 
+to provide additional information on how to implement a FHIR-based PRO collection and storage system that
+adheres to the United States of America's Code of Federal Regulations Title 21, Part 11 on electronic records and signatures ([21 CFR Part 11](https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfCFR/CFRSearch.cfm?CFRPart=11&showFR=1)).
 
-PRO FHIR IG will leverage the US-Core IG and profiles for the resources that overlap with US-Core. PRO FHIR IG will also leverage the Structured Data Capture (SDC) FHIR IG.
+While the PRO implementation guide focuses on capturing and exchanging patient reported outcome data electronically using the FHIR standard, this implementation guide addresses many of the technical security
+and auditing requirements in the Federal regulations. 
 
-The next section provides a road map for the reader to walk through the implementation guide.
+PRO FHIR IG references other implementation guide dependencies that are not re-listed here for 
+maintainabililty. 
 
 ###  Guidance to the readers
 
-The following table will provide a road map to the reader to follow and absorb the content of the implementation guide.
+The following table introduces the content of this implementation guide.
 
 | Topic to Read  | What it Contains and its relationship to PRO IG | Where can I find the content ? |
 |:---------------|:------------------------------------------------|-------------------------------:|

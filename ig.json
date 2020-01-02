@@ -58,7 +58,7 @@
   "extraTemplates" : [
     "mappings"
   ],
-  "fixed-business-version" : "0.2.0",
+  "fixed-business-version" : "0.0.1",
   "gen-examples" : "false",
   "html-template" : "html-template.html",
   "license" : "CC0-1.0",
@@ -109,7 +109,7 @@
       "mode" : "single"
     }
   ],
-  "title" : "Patient Reported Outcomes",
+  "title" : "Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.json",
   "tool" : "jekyll",
   "topofpage" : "true",
   "version" : "4.0.1"

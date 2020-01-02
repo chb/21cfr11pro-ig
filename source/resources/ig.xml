@@ -3,9 +3,9 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir">
   <id value="ig"/>
   <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig"/>
-  <version value="0.2.0"/>
-  <name value="PatientReportedOutcomes"/>
-  <title value="Patient Reported Outcomes"/>
+  <version value="0.0.1"/>
+  <name value="PatientReportedOutcomes21CFR11"/>
+  <title value="Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml"/>
   <status value="draft"/>
   <publisher value="HL7 International - FHIR Infrastructure Work Group"/>
   <copyright value="Used by permission of HL7, all rights reserved Creative Commons License"/>
@@ -16,11 +16,11 @@
     </telecom>
   </contact>
   <!-- 0..1 Use and/or publishing restrictions -->
-  <packageId value="hl7.fhir.us.patient-reported-outcomes"/>
+  <packageId value="hl7.fhir.us.patient-reported-outcomes-21cfr11"/>
   <!-- 0..1 NPM Package name for IG -->
   <!-- <license value="CC0-1.0"/> -->
   <!-- 0..1 SPDX license code for this IG (or not-open-source) -->
-  <fhirVersion value="4.0.0"/>
+  <fhirVersion value="4.0.1"/>
 <!--  <dependsOn>
     <uri value="http://build.fhir.org/ig/HL7/sdc"/>
     <version value="current"/>
@@ -42,7 +42,7 @@
     </resource>   -->
     <page>
       <nameUrl value="index.md"/> 
-      <title value="PRO Homepage"/>
+      <title value="PRO 21CFR11 Homepage"/>
       <generation value="markdown"/>
     </page>
   </definition>

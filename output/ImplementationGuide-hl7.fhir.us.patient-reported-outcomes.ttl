@@ -10,14 +10,14 @@
   fhir:Resource.id [ fhir:value "hl7.fhir.us.patient-reported-outcomes"];
   fhir:DomainResource.text [
      fhir:Narrative.status [ fhir:value "generated" ];
-     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>PatientReportedOutcomes</h2><p>The official URL for this implementation guide is: </p><pre>http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes</pre></div>"
+     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes</pre></div>"
   ];
   fhir:ImplementationGuide.url [ fhir:value "http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes"];
-  fhir:ImplementationGuide.version [ fhir:value "0.2.0"];
-  fhir:ImplementationGuide.name [ fhir:value "PatientReportedOutcomes"];
-  fhir:ImplementationGuide.title [ fhir:value "Patient Reported Outcomes"];
+  fhir:ImplementationGuide.version [ fhir:value "0.0.1"];
+  fhir:ImplementationGuide.name [ fhir:value "PatientReportedOutcomes21CFR11"];
+  fhir:ImplementationGuide.title [ fhir:value "Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml"];
   fhir:ImplementationGuide.status [ fhir:value "draft"];
-  fhir:ImplementationGuide.date [ fhir:value "2019-12-31T07:00:54+11:00"^^xsd:dateTime];
+  fhir:ImplementationGuide.date [ fhir:value "2020-01-02T15:01:17+11:00"^^xsd:dateTime];
   fhir:ImplementationGuide.publisher [ fhir:value "HL7 International - FHIR Infrastructure Work Group"];
   fhir:ImplementationGuide.contact [
      fhir:index 0;
@@ -28,10 +28,10 @@
      ]
   ];
   fhir:ImplementationGuide.copyright [ fhir:value "Used by permission of HL7, all rights reserved Creative Commons License"];
-  fhir:ImplementationGuide.packageId [ fhir:value "hl7.fhir.us.patient-reported-outcomes"];
+  fhir:ImplementationGuide.packageId [ fhir:value "hl7.fhir.us.patient-reported-outcomes-21cfr11"];
   fhir:ImplementationGuide.license [ fhir:value "CC0-1.0"];
   fhir:ImplementationGuide.fhirVersion [
-     fhir:value "4.0.0";
+     fhir:value "4.0.1";
      fhir:index 0
   ];
   fhir:ImplementationGuide.dependsOn [
@@ -71,7 +71,7 @@
      ];
      fhir:ImplementationGuide.definition.page [
        fhir:ImplementationGuide.definition.page.nameUrl [ fhir:value "index.md" ];
-       fhir:ImplementationGuide.definition.page.title [ fhir:value "PRO Homepage" ];
+       fhir:ImplementationGuide.definition.page.title [ fhir:value "PRO 21CFR11 Homepage" ];
        fhir:ImplementationGuide.definition.page.generation [ fhir:value "markdown" ]
      ]
   ] .
