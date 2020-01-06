@@ -12,9 +12,63 @@ f: http://build.fhir.org/
 * Do not remove this line (it will not be displayed)
 {:toc}
 
+
 ### Introduction
 
-The implementation guidance outlined in this page provides useful information for developers implementing the various PRO actors and their capabilities. All resources and parameters used in this part of the IG are examples and are expected to conform to the resources, profiles and other constraints outlined in the [CapabilityStatements](capstatements.html).
+** TBD: The implementation guidance outlined in this page provides useful information for developers implementing the various PRO actors and their capabilities. All resources and parameters used in this part of the IG are examples and are expected to conform to the resources, profiles and other constraints outlined in the [CapabilityStatements](capstatements.html).
+
+### Public Key Infrastructure and Identity Verification Controls
+
+Public Key Infrastructure (PKI) is required to provide a standards-based, resilient and manageable infrastructure for signing PRO data. This page discusses the use and limitations of PKI for assuring provenance and providing tamper-evidence for PROs.
+
+In a perfect 21 CFR 11 implementation auditable provenance of PROs requires that the PRO data is signed off by the patient who generated the data. In systems where it is not possible for a strong assertion that the data is unchanged since it was entered by a patient, other manual or computational processes and non-cryptographic record-keeping are required to prove provenance. For the U24 project we propose a hybrid approach when a FHIR server is used as the storage mechanism.
+
+  1. To establish the identity of a patient who is providing a Patient Reported Outcome a good practice is to have that patient/subject create a private key and to use that private key to generate an identity certificate which is shared with any other person or system who wants to be able to decrypt or verify information created by that subject.
+  1. In cases where the software components of a system do not support a subject using their own certificate, the FHIR server portion can implement a "signing proxy" that takes PRO information from a system that does not use PKI, and sign those resources at the edge of the ecosystem boundary to add an assertion about the provenance of FHIR resources at the time they enter the FHIR ecosystem.
+
+
+#### Establishing a key pair for the client
+
+How a FHIR client assures its identity and creates a private key and CA-signed certificate is important to describe in a 21 CFR Part 11 PRO implementation guide.
+
+To sign its provided resources, each FHIR client will require a private key and an ID certificate.
+
+The ID certificate should be:
+
+  * Only issued to verified patients
+  * Signed by a (reputable) CA
+  * Uniquely identified
+  * Available to auditors when signatures need to be verified
+  * Able to be revoked and revocation status made available to auditors
+  * Able to expire and be reissued
+  * Provide Detached Signatures for Resources in Provenance Resources
+
+The ID certificate should also be made available to any system or person who needs to verify the authenticity of signed resources.
+
+### Provenance and Resource Signing
+
+Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.
+
+A Provenance resource contains a pointer to the FHIR system's concept of who made a change to a resource, what version of the FHIR server's resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
+For 21 CFR Part 11 compliance, a Provenance resource should provide:
+  * A link to the server instance of the resource the signature is for
+  * A signature
+  * The identity or fingerprint of the currently-issued ID certificate that corresponds to the secret key used to sign the resource.
+When a signature is provided it is important to note a known corresponding ID certificate. Because ID certificates can be reissued, and a single FHIR client could have multiple valid identity certificates published at once.
+
+
+
+### Cryptographic Journaling and Auditing
+
+
+To audit every resource of interest the following process needs to be supported:
+  1. The resource is retrieved
+  2. The corresponding Provenance entry is retrieved
+  3. The certificate referenced in the Provenance entry is retrieved
+  4. The certificate (from 3) is used to validate that the signature (retreived in 2) corresponds to the canonical version of the resource (retrieved in 1)
+
+
+***
 
 ### Implementation Guidance for administering Basic Questionnaires
 

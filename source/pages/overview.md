@@ -19,7 +19,26 @@ active: overview
 
 There are requirements in 21 CFR 11 that can't be met with strict adherence to the FHIR PRO IG and recommended Security Profiles because of an emphasis on non-repudiation and capturing all data state changes including those of a system operator. The system operator can be an "insider threat" where duly-authorized personnel affect the integrity of collected data. The non-repudiation places an emphasis on ensuring that the contributor of PRO data is a trusted participant and that the PRO data has not changed since it was originally entered.
 
-`11.10(a): 
+The below sections describe the relevant 21 CFR 11 requirements and their applicability to this extension of the PRO Implementation Guide.
+
+#### 11.10 Controls for closed systems.
+
+```
+Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine.[...]
+```
+
+This section is a summary of hte following requirements and notably mentions the signing of the electronic records and non-repudiation requirements. Also notible is that there is a stated requirement for a system to ensure the _integrity_ of electronic records.
+
+
+Non-repudiation can be implemented with a managed public key infrastructure and identity verification controls. 
+ 
+The integrity requirement can be met with a capability to independently verify the totality of the state of the stored records (cryptographic journaling) and the individual records themselves (client digital signing).
+
+
+
+
+
+#### 11.10(a): 
 
 
 ### The PRO Implementation Guide and FHIR implementation patterns
