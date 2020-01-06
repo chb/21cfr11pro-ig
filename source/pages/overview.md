@@ -13,12 +13,25 @@ active: overview
 
 <!-- end TOC -->
 
-### Introduction
+### CFR Title 21 Part 11 applied to PRO collection systems
+
+[21 CFR 11](https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfCFR/CFRSearch.cfm?CFRPart=11&showFR=1) section 11.10 lists a set of requirements related to the controls for closed systems that are addressed in this implementation guide.
+
+There are requirements in 21 CFR 11 that can't be met with strict adherence to the FHIR PRO IG and recommended Security Profiles because of an emphasis on non-repudiation and capturing all data state changes including those of a system operator. The system operator can be an "insider threat" where duly-authorized personnel affect the integrity of collected data. The non-repudiation places an emphasis on ensuring that the contributor of PRO data is a trusted participant and that the PRO data has not changed since it was originally entered.
+
+`11.10(a): 
 
 
-{% include img.html img="flow-diagram.png" caption="Cryptographic provenance and transaction journaling " %}
+### The PRO Implementation Guide and FHIR implementation patterns
 
+A “pure FHIR” PRO collection mechanism adheres to the PRO Working Group’s Implementation Guide with PROs being captured using questionnaires delivered based on Questionnaire resources and the PRO data stored and exchanged using QuestionnaireResponse resources. These two resources are two of the three foundational resource types in the FHIR standard’s workflow pattern. 
 
+{% include img.html img="pro-ig-scope.png" caption="PRO Implementation adherence to the FHIR workflow pattern " %}
+
+21 CFR 11 compliance does not change this pattern, but it introduces some complementary Resources and 
+constrains operations to provide a secure, auditable store with non-repudiable and tamper-evident transactions.
+
+The main 
 
 ###  Background and Threat Model
 
@@ -33,17 +46,20 @@ The two main architectural approaches proposed in U24 are:
 
 A flow diagram for a general implementation is provided below:
 
-{% include img.html img="flow-diagram.png" caption="Cryptographic provenance and transaction journaling " %}
+{% include img.html img="signing-and-journaling-flow.png" caption="Cryptographic provenance and transaction journaling " %}
 
 
 The figure above shows a FHIR client which could be embedded in an app or a gateway to an Electronic Data Capture system like Medidata RAVE or EPIC. The client sends PRO and any other data as FHIR resources to a FHIR server which stores the resource and provides the “fixed up” FHIR resource back to the client according to the FHIR standard. 
+
 In a 21 CFR Part 11-compliant architecture the client would verify the canonical portions of the “fixed up” resource that is returned from the server is identical to the provided resource information. If the canonical server resource information matches the client’s original, then the client creates a signature of the resource using the canonical version of the resource and the client’s identity certificate. 
 The signature for the resource containing PRO data is enclosed in a Provenance resource and send to the server to be stored.
+
 The level of provenance provided will depend on where the FHIR client sits in the system architecture. If the architecture is an app that is in the hands of a user, then the architecture supports signing that integrates with the authentication recommendations of the FHIR PRO Implementation Guide and FHIR resources created by a user’s app can be signed with a certificate that identifies that user.
 For architectures that do not have a FHIR client that is in the control of a user, the “gateway” client that translates data into FHIR will have to make a provenance assertion of its own which guarantees provenance at the point that the gateway client has access to the data, but does not represent a provenance assertion from the original source of the data, just that point that the gateway has custody. 
 When a FHIR client is a gateway for an external system it may be appropriate for the gateway client to provide a special resource, or additional metadata to describe the “upstream” source of the data and the kind of provenance assertions it can make, or a document describing how to audit the upstream provenance of the data.
 
 The FHIR server records all resource create, update and delete operations in a cryptographic journal where past transactions are immutable. This could be a blockchain-like cryptographically-assured data structure, but there is no mandatory requirement for a full blockchain implementation with distributed transactions and proof of work – just that the journal provide a immutability for past transaction records and a way to detect tampering in the journal or when the journal is correlated with the system state. For additional security the journal may be replicated to an external network.
+
 Amazon offers a service suitable for a persistence and journaling layer with immutable history designed for document that is called the Quantum Ledger Database (QLDB). A FHIR server implemented using QLDB to store FHIR resources as documents would generate an immutable journal with controlled and audited access meeting the auditability and tamper-evidence requirements of 21 CFR Part 11. Alternative implementation technologies like HyperLedger Fabric are more complex to set up, and can be expensive to operate privately.
 QLDB is expected to be available as a HIPAA-eligible service, but has not been added to the HIPAA-eligible service catalog yet. 
 

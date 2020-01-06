@@ -1,7 +1,7 @@
 {:.nav .navbar-nav}
 <!-- don't remove the line above - to add or remove a menu item commeent in or out -->
 - [Home](index.html)
-- [Overview](pro-overview.html)
+- [Overview](overview.html)
 - [Profiles and Extensions](profiles.html)
 <!-- - [Mappings](structuremaps.html) -->
 <!-- - [Extensions](extensions.html) -->
