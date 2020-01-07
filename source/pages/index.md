@@ -34,8 +34,8 @@ The following table introduces the content of this implementation guide.
 | Topic to Read  | What it Contains and its relationship to PRO IG | Where can I find the content ? |
 |:---------------|:------------------------------------------------|-------------------------------:|
 | Basic Definitions | The set of definitions applicable to the PRO FHIR IG. (Definition of“Supported or MUST Support”, Usage of Code Bindings in US Core Profiles.).| [US-Core Definitions]({{site.data.fhir.uscoreR4}}index.html)|
-| PRO Overview | The artifact provides background on Patient Reported Outcomes, Patient Reported Outcome Measures and other PRO related topics.| [PRO Overview](pro-overview.html)|
-| Profiles | The artifact defines the various profiles, extensions and resources that make up the PRO FHIR IG.| [Profiles](profiles.html)|
+| PRO Overview | The artifact provides background on collecting Patient Reported Outcomes in a 21 CFR Part 11 standard.| [21 CFR 11 Compliant PRO Overview](overview.html)|
+| Profiles | The artifact defines the various profiles, extensions and resources that make up the 21 CFR 11 PRO FHIR IG.| [Profiles](profiles.html)|
 | Capability Statements | The artifact defines the various capability statements (implementation requirements) for each PRO actor that make up the PRO FHIR IG.| [Capability Statements](capstatements.html)|
 | Implementation Guidance | The artifact contains guidance and examples that will help implementers of PRO FHIR IG.| [Implementation Guidance](guidance.html)|
 

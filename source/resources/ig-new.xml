@@ -27,7 +27,7 @@
     </telecom>
   </contact>
   <copyright value="Used by permission of HL7, all rights reserved Creative Commons License"/>
-  <packageId value="hl7.fhir.us.patient-reported-outcomes"/>
+  <packageId value="hl7.fhir.us.patient-reported-outcomes-21cfr11"/>
   <license value="CC0-1.0"/>
   <fhirVersion value="4.0.1"/>
   <fhirVersion value="4.0.1"/>

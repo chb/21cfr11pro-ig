@@ -228,6 +228,12 @@ This is the
 
 <ul id="markdown-toc">
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#public-key-infrastructure-and-identity-verification-controls" id="markdown-toc-public-key-infrastructure-and-identity-verification-controls">Public Key Infrastructure and Identity Verification Controls</a>    <ul>
+      <li><a href="#establishing-a-key-pair-for-the-client" id="markdown-toc-establishing-a-key-pair-for-the-client">Establishing a key pair for the client</a></li>
+    </ul>
+  </li>
+  <li><a href="#provenance-and-resource-signing" id="markdown-toc-provenance-and-resource-signing">Provenance and Resource Signing</a></li>
+  <li><a href="#cryptographic-journaling-and-auditing" id="markdown-toc-cryptographic-journaling-and-auditing">Cryptographic Journaling and Auditing</a></li>
   <li><a href="#implementation-guidance-for-administering-basic-questionnaires" id="markdown-toc-implementation-guidance-for-administering-basic-questionnaires">Implementation Guidance for administering Basic Questionnaires</a>    <ul>
       <li><a href="#prom-instrument-and-meta-data-repository-implementation" id="markdown-toc-prom-instrument-and-meta-data-repository-implementation">PROM Instrument and Meta data Repository Implementation</a></li>
       <li><a href="#ehr-or-care-delivery-health-it-system" id="markdown-toc-ehr-or-care-delivery-health-it-system">EHR or Care Delivery Health IT System</a></li>
@@ -243,7 +249,63 @@ This is the
 
 <h3 id="introduction">Introduction</h3>
 
-<p>The implementation guidance outlined in this page provides useful information for developers implementing the various PRO actors and their capabilities. All resources and parameters used in this part of the IG are examples and are expected to conform to the resources, profiles and other constraints outlined in the <a href="capstatements.html">CapabilityStatements</a>.</p>
+<p>** TBD: The implementation guidance outlined in this page provides useful information for developers implementing the various PRO actors and their capabilities. All resources and parameters used in this part of the IG are examples and are expected to conform to the resources, profiles and other constraints outlined in the <a href="capstatements.html">CapabilityStatements</a>.</p>
+
+<h3 id="public-key-infrastructure-and-identity-verification-controls">Public Key Infrastructure and Identity Verification Controls</h3>
+
+<p>Public Key Infrastructure (PKI) is required to provide a standards-based, resilient and manageable infrastructure for signing PRO data. This page discusses the use and limitations of PKI for assuring provenance and providing tamper-evidence for PROs.</p>
+
+<p>In a perfect 21 CFR 11 implementation auditable provenance of PROs requires that the PRO data is signed off by the patient who generated the data. In systems where it is not possible for a strong assertion that the data is unchanged since it was entered by a patient, other manual or computational processes and non-cryptographic record-keeping are required to prove provenance. For the U24 project we propose a hybrid approach when a FHIR server is used as the storage mechanism.</p>
+
+<ol>
+  <li>To establish the identity of a patient who is providing a Patient Reported Outcome a good practice is to have that patient/subject create a private key and to use that private key to generate an identity certificate which is shared with any other person or system who wants to be able to decrypt or verify information created by that subject.</li>
+  <li>In cases where the software components of a system do not support a subject using their own certificate, the FHIR server portion can implement a “signing proxy” that takes PRO information from a system that does not use PKI, and sign those resources at the edge of the ecosystem boundary to add an assertion about the provenance of FHIR resources at the time they enter the FHIR ecosystem.</li>
+</ol>
+
+<h4 id="establishing-a-key-pair-for-the-client">Establishing a key pair for the client</h4>
+
+<p>How a FHIR client assures its identity and creates a private key and CA-signed certificate is important to describe in a 21 CFR Part 11 PRO implementation guide.</p>
+
+<p>To sign its provided resources, each FHIR client will require a private key and an ID certificate.</p>
+
+<p>The ID certificate should be:</p>
+
+<ul>
+  <li>Only issued to verified patients</li>
+  <li>Signed by a (reputable) CA</li>
+  <li>Uniquely identified</li>
+  <li>Available to auditors when signatures need to be verified</li>
+  <li>Able to be revoked and revocation status made available to auditors</li>
+  <li>Able to expire and be reissued</li>
+  <li>Provide Detached Signatures for Resources in Provenance Resources</li>
+</ul>
+
+<p>The ID certificate should also be made available to any system or person who needs to verify the authenticity of signed resources.</p>
+
+<h3 id="provenance-and-resource-signing">Provenance and Resource Signing</h3>
+
+<p>Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.</p>
+
+<p>A Provenance resource contains a pointer to the FHIR system’s concept of who made a change to a resource, what version of the FHIR server’s resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
+For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
+<ul>
+  <li>A link to the server instance of the resource the signature is for</li>
+  <li>A signature</li>
+  <li>The identity or fingerprint of the currently-issued ID certificate that corresponds to the secret key used to sign the resource.
+When a signature is provided it is important to note a known corresponding ID certificate. Because ID certificates can be reissued, and a single FHIR client could have multiple valid identity certificates published at once.</li>
+</ul>
+
+<h3 id="cryptographic-journaling-and-auditing">Cryptographic Journaling and Auditing</h3>
+
+<p>To audit every resource of interest the following process needs to be supported:</p>
+<ol>
+  <li>The resource is retrieved</li>
+  <li>The corresponding Provenance entry is retrieved</li>
+  <li>The certificate referenced in the Provenance entry is retrieved</li>
+  <li>The certificate (from 3) is used to validate that the signature (retreived in 2) corresponds to the canonical version of the resource (retrieved in 1)</li>
+</ol>
+
+<hr />
 
 <h3 id="implementation-guidance-for-administering-basic-questionnaires">Implementation Guidance for administering Basic Questionnaires</h3>
 
@@ -566,14 +628,14 @@ This is the
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Mon, Jan 6, 2020 15:22+1100">2020-01-06</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, Jan 8, 2020 06:43+1100">2020-01-08</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Mon, Jan 6, 2020 15:22+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, Jan 8, 2020 06:43+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

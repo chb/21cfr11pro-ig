@@ -10,7 +10,6 @@ active: overview
 * Do not remove this line (it will not be displayed)
 {:toc}
 
-
 <!-- end TOC -->
 
 ### CFR Title 21 Part 11 applied to PRO collection systems
@@ -29,16 +28,27 @@ Persons who use closed systems to create, modify, maintain, or transmit electron
 
 This section is a summary of hte following requirements and notably mentions the signing of the electronic records and non-repudiation requirements. Also notible is that there is a stated requirement for a system to ensure the _integrity_ of electronic records.
 
-
 Non-repudiation can be implemented with a managed public key infrastructure and identity verification controls. 
- 
+
 The integrity requirement can be met with a capability to independently verify the totality of the state of the stored records (cryptographic journaling) and the individual records themselves (client digital signing).
 
+#### 11.10(a)
 
+```
+(a) Validation of systems to ensure accuracy, reliability, consistent intended performance, and the ability to discern invalid or altered records.
+```
 
+The significant part of this paragraph is the ability to discern invalid or altered records. This is a requirement that is not met with adherence to the FHIR Security profile alone. The FHIR Secirity profile requirements are necessary to meet all of the 21 CFR 11 requirements, but the threat model of that profile is mostly external actors. The 21 CFR 11 standard imagines both external and internal threats and requirements like this require a mechanism to repliably provide tamper-evidence. 
 
+This implementation guide recommends the use of a cryptographically-secured journal with a copy of that journal data stored apart from the collected PRO data.
 
-#### 11.10(a): 
+#### 11.10(e)
+
+```
+(e) Use of secure, computer-generated, time-stamped audit trails to independently record the date and time of operator entries and actions that create, modify, or delete electronic records. Record changes shall not obscure previously recorded information. Such audit trail documentation shall be retained for a period at least as long as that required for the subject electronic records and shall be available for agency review and copying.
+```
+
+The requirement for an audit trail is a conventional method for allowing auditing and forensic analysis of compuer system operation in event of a breach. The significant section is the requirement to provide an audit trail for deletions. If we sign all FHIR transactions individually, then an insider attacker can still delete the resource and the audit log entry. Cryptographic journals capture delete events and individual deletions can not be elided without complete recreation of the audit log with the participation of the resource signers.
 
 
 ### The PRO Implementation Guide and FHIR implementation patterns
@@ -79,25 +89,57 @@ When a FHIR client is a gateway for an external system it may be appropriate for
 
 The FHIR server records all resource create, update and delete operations in a cryptographic journal where past transactions are immutable. This could be a blockchain-like cryptographically-assured data structure, but there is no mandatory requirement for a full blockchain implementation with distributed transactions and proof of work – just that the journal provide a immutability for past transaction records and a way to detect tampering in the journal or when the journal is correlated with the system state. For additional security the journal may be replicated to an external network.
 
-Amazon offers a service suitable for a persistence and journaling layer with immutable history designed for document that is called the Quantum Ledger Database (QLDB). A FHIR server implemented using QLDB to store FHIR resources as documents would generate an immutable journal with controlled and audited access meeting the auditability and tamper-evidence requirements of 21 CFR Part 11. Alternative implementation technologies like HyperLedger Fabric are more complex to set up, and can be expensive to operate privately.
-QLDB is expected to be available as a HIPAA-eligible service, but has not been added to the HIPAA-eligible service catalog yet. 
+### System Types
 
-#### RAVE  
+#### Conventional PRO Collection
 
-The CARRA Medidata RAVE ODM to FHIR gateway is a FHIR client that produces QuestionnaireResponses, Patient, Organization and Encounter resources. The ODM-to-FHIR gateway adheres to the PRO Implementation Guide in that it generates QuestionnaireResponse resource, but Medidata RAVE takes care of the definition of questionnaires internally and this is not made available for translation to an external FHIR resource.
-To adhere to the recommendations of this architecture the minimum requirement for the ODM-to-FHIR gateway would be to provide a Provenance resource with a signature for each of the added, removed and changed server resources.
+The following diagram illustrates the conventional (traditional) approach to implementing a PRO Electronic Data Collection system and data warehouse with 21 CFR 11 compliance.
 
-#### EPIC 
-
-Similarly to Medidata RAVE, EPIC has an internal proprietary Questionnaire resource equivalent. EPIC also makes use of LOINC to automatically define question structure, and the LOINC coding is available in the FHIR resources available from the EPIC FHIR Server API.
-
-Unlike RAVE, EPIC has a simple FHIR server API that can be queries by an external FHIR client application to retrieve PRO data. The data is provided as FHIR DSTU3 Observation resources, which, while not what the PRO Implementation Guide accommodates, could be translated into a QuestionnaireResponse resource similarly to the RAVE approach. 
-
-There are practical problems with using this interface as a FHIR mirror of data stored in EPIC, as the server interface does not provide access to an entire journal of state changes, just current state for the queried resources. For a 21 CFR Part 11-compliant adjunct were to be engineered, the EPIC portion of the system would have to be architected and audited as 21 CFR 11 compliant.
-
-For providing 21 CFR Part 11 security measures, a gateway that used a DSTU3 client to retrieve the data from EPIC, then a FHIR R4 client to send Observation or QuestionnaireResponse resources to a server could implement the same Provenance protocol as the RAVE approach above. 
+the study participants (1) submit data to an EDC/warehouse (2). The identity of each study participant is assuree with an enrolment (3) and identity management procedure (6). Authorized personnel store the participant’s contact information (4). All data changes are captured in an audit trail (5). 
+Determining adherence to 21 CFR Part 11 (7) requires the Agency’s inspector to review governance policies and procedures (6) as well as audit information and personnel training and management necessary to deter data falsification (5).
+This approach places trust in personnel and systems within the study. 21 CFR Part 11.10(j) prioritizes deterrence of record and identity falsification over protection from these classes of insider attack. Data entered by participants is stored in the study warehouse, but there is no means to determine that the data stored has not been tampered with, or otherwise corrupted, since it was provided by the participant as required by 21 CFR Part 11.10(a).
 
 
+{% include img.html img="FHIR-Workflow-and-PRO-Resources-traditional-PRO-system-2.png" caption="Conventional non-FHIR PRO collection" %}
+
+#### 21 CFR 11 PRO FHIR Warehousing
+
+The figure below shows a PRO capture system that meets 21 CFR 11 requirements discussed above. 
+
+Study participants (1) use their identity certificate obtained after proving their identity to a trusted certificate authority during study enrolment (3).  Study data is stored with a signature that can be used to attest to that the data has not been altered and that it originated from a valid study participant.
+
+Because even signed data can be deleted, the audit trail is stored in a tamper-evident ledger (5) which can be used to identify if the ledger has been tampered with, or the study data.
+
+{% include img.html img="FHIR-Workflow-and-PRO-Resources-FHIR_Provenance-PRO-system-2.png" caption="FHIR Workflow with an entirely FHIR system implementation" %}
+
+### System Boundaries and Key Management
+
+PRO EDC systems and warehouses come in both FHIR-based and hybrid FHIR/non-FHIR systems. Provenance and auditing requirements applicable to 21 CFR 11 compliance in this implementation guide are applicable to the edge of the FHIR subsystem within the entire system PRO pipeline, but the text below and the guidance in this implementation guide provide practical steps to create a 21 CFR 11 compliant system from both a purely FHIR-based architecture and a typical hybrid system.
+
+The two main additional requirements for 21 CFR 11 compliance require digital signing, a key and certificate management system is required to ensure that PROs entering the FHIR subsystems are signed with certified keys and certificates are available for any systems or personnel who need to verify signatures.
+
+FHIR clients participating in a 21 CFR 11 compliant system must make use of a private key and make a properly certified identity certificate available to system actors that will need to verify the provenance of client-submitetd data. 
+
+FHIR servers, or the cryptographic journaling technology they use will also require a private key and identity certificate to maintain a cryptographic journal. 
+
+Both clients and servers will have to participate in a Managed Public Key Infrastructure to ensure that their certificates and certificate status are:
+
+  1. Revocable,
+  2. Signed by an acceptably reputable certifying authority
+
+Two typical examples are discussed below.
+
+#### 21 CFR 11 PRO FHIR Warehousing with a non-FHIR EDC
+
+
+
+
+{% include img.html img="FHIR-Workflow-and-PRO-Resources-Gateway-ed-FHIR.png" caption="External PRO collection to FHIR warehouse with gateway identity certificate" %}
+
+#### 21 CFR 11 PRO FHIR EDC and Warehousing 
+
+
+{% include img.html img="FHIR-Workflow-and-PRO-Resources-Simple-end-to-end-fhir.png" caption="FHIR PRO system with patient identity certificates" %}
 
 
 <!-- {% raw %}>{% include link-list.md %} {% endraw %}-->
