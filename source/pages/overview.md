@@ -146,7 +146,7 @@ Both clients and servers will have to participate in a Managed Public Key Infras
   1. Revocable,
   2. Signed by an acceptably reputable certifying authority
 
-Two typical examples are discussed below.
+Two design examples are discussed below.
 
 #### 21 CFR 11 PRO FHIR Warehousing with a non-FHIR EDC
 
@@ -159,8 +159,13 @@ The FHIR resources in this type of system are signed at the system boundary by t
 
 #### 21 CFR 11 PRO FHIR EDC and Warehousing 
 
+The diagram below shows a simplified context diagram for a PRO-collecting app that is a FHIR client that communicates securely with a FHIR server. In this entirely-FHIR system each patient who reports PRO data can have their own secret key and identity certificate. 
+
+The subject's secret key need not even be known to the Subject if the process of enrolment and generation of secret keys and certified identity certificates is hidden from the user and protected by the app or the app's enrolment ecosystem.
 
 {% include img.html img="FHIR-Workflow-and-PRO-Resources-Simple-end-to-end-fhir.png" caption="FHIR PRO system with patient identity certificates" %}
+
+
 
 
 <!-- {% raw %}>{% include link-list.md %} {% endraw %}-->
