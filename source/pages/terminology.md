@@ -32,8 +32,12 @@ This is a private key and the corresponding ID certificate. This can be a misnom
 
 (Also Thumbprint) This is a unique identifier for a certificate (Usually an MD5 hash of the certificate content). Fingerprints are used by certificate revocation (CRL) and status verification (OCSP) services as a unique identifier for certificates for efficient lookup.
 
-### Non-Repudiation
+#### Non-Repudiation
 
 Non-repudiation is a characteristic of PKI systems where content that is digitally signed using a private key can be matched to a public certificate to give a high confidence that the resource was signed by an individual or system with sole possession of the private key. This characteristic usually relies on a mechanism or contractual undertaking by the signer to keep their private key safe and only access it for purposes of proving provenance or assent.
 
+### Electronic Data Capture (EDC) 
 
+    An electronic data capture (EDC) system is a computerized system designed for the collection of clinical data in electronic format for use mainly in human clinical trials. 
+
+  - ([Wikipedia](https://en.wikipedia.org/wiki/Electronic_data_capture))

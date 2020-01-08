@@ -60,7 +60,6 @@ A “pure FHIR” PRO collection mechanism adheres to the PRO Working Group’s 
 21 CFR 11 compliance does not change this pattern, but it introduces some complementary Resources and 
 constrains operations to provide a secure, auditable store with non-repudiable and tamper-evident transactions.
 
-The main 
 
 ###  Background and Threat Model
 
@@ -73,19 +72,39 @@ The two main architectural approaches proposed in U24 are:
 
   2.  Write-only, cryptographically-signed journaling. A 21 CFR Part 11-compliant FHIR server can implement a write-only, cumulatively signed journal of system changes to allow system tampering and corruption to be detected. The combination of resource provenance for patient-provided resources and the system journal satisfy 21 CFR Part 11 requirements for auditability, protection of records and secure, computer-generated audit records for all create, modify and delete activities for electronic records.
 
-A flow diagram for a general implementation is provided below:
-
-{% include img.html img="signing-and-journaling-flow.png" caption="Cryptographic provenance and transaction journaling " %}
 
 
-The figure above shows a FHIR client which could be embedded in an app or a gateway to an Electronic Data Capture system like Medidata RAVE or EPIC. The client sends PRO and any other data as FHIR resources to a FHIR server which stores the resource and provides the “fixed up” FHIR resource back to the client according to the FHIR standard. 
+{% include img.html img="signing-and-journaling-flow.png" caption="Cryptographic provenance and transaction journaling flow overview and context" %}
 
-In a 21 CFR Part 11-compliant architecture the client would verify the canonical portions of the “fixed up” resource that is returned from the server is identical to the provided resource information. If the canonical server resource information matches the client’s original, then the client creates a signature of the resource using the canonical version of the resource and the client’s identity certificate. 
-The signature for the resource containing PRO data is enclosed in a Provenance resource and send to the server to be stored.
+
+The figure above shows a FHIR client which could be embedded in an app or a gateway to an Electronic Data Capture system like Medidata RAVE or EPIC. The client sends PRO and any other data as FHIR resources to a FHIR server which stores the resource and provides the “fixed up” FHIR resource back to the client as per the FHIR standard. The points below explain the sequence:
+
+
+1. *Send Resource* This is a POST, PUT or DELETE with a HTTP `Prefer: return=representation` header set as per the [FHIR HTTP standards](https://www.hl7.org/fhir/http.html#ops). This ensures that the HTTP response contains the a full copy of the resource after any FHIR server mutations. The client can use the returned resource to compare with the expected values and sign that to provide a Provenance resource. A FHIR client can't sign the original resource because the server will change the ID, version and some other metadata before persisting the resource, rendering any signature invalid. The client has to verify the server's copy of the resource and sign that for a signature to be valid and able to be used to detect changes from the time the provenance was asserted. 
+2. *Server stores resource & assigns ID* This is the FHIR server making the client's request change (adding, changing or deleting a resource) and fixing up any versions or unique IDs according to the server's internal state and implentation. 
+3. *Server stores read-only action and Resource in journal* The server sends a copy of the persisted resource to a cryptographic journal.
+4. *Response with server's fixed-up Resource* The HTTP response from the server returns a full copy of the resource after the sever has made any server-required changes to the Resource to add versions, IDs or any other metadata.
+5. *Client verifies and generates signature from canonical server response* The client extracts the Resource from the HTTP response and compares a canonical version of the response with the expected value intended in the original FHIR transaction. To do this the client would need to canonicalise the JSON or XML of the original and returned resources and compare to see if these are equivalent. The client should not consider the server-assigned ID, versions or other metadata when it compares the original or returned transactions. 
+  * If there is a difference between the sent and received resource then the client should not proceed with signing the returned resource, and should alert the client or operator that the server has offered a different resource to sign than the one expected.
+  * If the returned resource is the same, then the client shall generate a signature for the entire returned resource including the ID, versions and metadata.  
+The client then generates a Provenance resource containing the identity of the client, the thumbprint of the client's current identity certificate, date and timestamp information, and a reference to the Resource and resource representation that the Provenance resource refers to.
+6. *Send Provenance resource with resource signature* As per 1 above, the client POSTs a copy of the newly created Provenance resource.
+7. *Server saves Provenance resource & resource signature* As per 2 above, the Provenance resource is persisted in the FHIR server like any other POSTed resource.
+8. *Store read-only action and Provenance in journal* Per 3 above, the persistence of the Provenance resource is recorded in the cryptographic journal.
+9. *Server's fixed up copy of the Provenance resource* As per 4 above, the FHIR server returns a copy of the Provenance resource to the client. The FHIR client should check that the immutable content of the resource is identical to that which was sent and raise an error with the client or operator if the returned resource differs from the resource that was sent to the server.
+
+
+#### Client Interactions
+
+In a 21 CFR Part 11-compliant architecture the client would have responsibility for verifing the canonical portions of the “fixed up” resource that is returned from the server is identical to the provided resource information. If the canonical server resource information matches the client’s original, then the client creates a signature of the resource using the canonical version of the resource and the client’s identity certificate. The signature for the (canonical) resource containing PRO data is then enclosed in a Provenance resource and send to the server to be stored.
 
 The level of provenance provided will depend on where the FHIR client sits in the system architecture. If the architecture is an app that is in the hands of a user, then the architecture supports signing that integrates with the authentication recommendations of the FHIR PRO Implementation Guide and FHIR resources created by a user’s app can be signed with a certificate that identifies that user.
+
 For architectures that do not have a FHIR client that is in the control of a user, the “gateway” client that translates data into FHIR will have to make a provenance assertion of its own which guarantees provenance at the point that the gateway client has access to the data, but does not represent a provenance assertion from the original source of the data, just that point that the gateway has custody. 
+
 When a FHIR client is a gateway for an external system it may be appropriate for the gateway client to provide a special resource, or additional metadata to describe the “upstream” source of the data and the kind of provenance assertions it can make, or a document describing how to audit the upstream provenance of the data.
+
+#### Server Implementation Requirements
 
 The FHIR server records all resource create, update and delete operations in a cryptographic journal where past transactions are immutable. This could be a blockchain-like cryptographically-assured data structure, but there is no mandatory requirement for a full blockchain implementation with distributed transactions and proof of work – just that the journal provide a immutability for past transaction records and a way to detect tampering in the journal or when the journal is correlated with the system state. For additional security the journal may be replicated to an external network.
 
@@ -131,10 +150,12 @@ Two typical examples are discussed below.
 
 #### 21 CFR 11 PRO FHIR Warehousing with a non-FHIR EDC
 
-
-
+When PRO data is be collected into a non-FHIR EDC before being imported to a warehouse, 21 CFR 11 compliance must be assessed for both the entire system and the FHIR-based subsystems. The FHIR system boundary shown here is an external EDC like Medidata RAVE or EPIC that provides a mechanism for obtaining a journal of transactions that can be transformed into QuestionnareResponse resources and ingested into the PRO-storing FHIR Server.
 
 {% include img.html img="FHIR-Workflow-and-PRO-Resources-Gateway-ed-FHIR.png" caption="External PRO collection to FHIR warehouse with gateway identity certificate" %}
+
+The FHIR resources in this type of system are signed at the system boundary by the gateway software that is normally implemented as "back to back" EDC and FHIR clients. This gateway authenticates with the external EDC and transforms the PRO data into QuestionnaireResponses before HTTP POSTing them to the FHIR Server.
+
 
 #### 21 CFR 11 PRO FHIR EDC and Warehousing 
 
