@@ -156,6 +156,11 @@ When PRO data is be collected into a non-FHIR EDC before being imported to a war
 
 The FHIR resources in this type of system are signed at the system boundary by the gateway software that is normally implemented as "back to back" EDC and FHIR clients. This gateway authenticates with the external EDC and transforms the PRO data into QuestionnaireResponses before HTTP POSTing them to the FHIR Server.
 
+In this architecture transactions from the EDC have to be imported to FHIR in a repeatable order to allow a full audit of transactions and recreation of warehouse state for comparison.
+
+Use of a gateway model will result in Provenance being asserted by only the number of actor identities as there are gateways to the FHIR server. The gateway can add the original EDC's view of the original PRO subject's identity, and the role it plays. 
+
+
 
 #### 21 CFR 11 PRO FHIR EDC and Warehousing 
 
@@ -165,7 +170,142 @@ The subject's secret key need not even be known to the Subject if the process of
 
 {% include img.html img="FHIR-Workflow-and-PRO-Resources-Simple-end-to-end-fhir.png" caption="FHIR PRO system with patient identity certificates" %}
 
+In a fully-FHIR based system each client provides Provenance for each of the QuestionnaireResponse resources they generate and send, and does not act as a gateway or proxy. The FHIR server will store and journal QuestionnaireResponses with data provided, and Provenance assured by, the originator of the PRO response.
 
+### Public Key Infrastructure and Identity Verification Controls
+
+Public Key Infrastructure (PKI) is required to provide a standards-based, resilient and manageable infrastructure for signing PRO data. This page discusses the use and limitations of PKI for assuring provenance and providing tamper-evidence for PROs.
+
+In a perfect 21 CFR 11 implementation auditable provenance of PROs requires that the PRO data is signed off by the patient who generated the data. In systems where it is not possible for a strong assertion that the data is unchanged since it was entered by a patient, other manual or computational processes and non-cryptographic record-keeping are required to prove provenance. For the U24 project we propose a hybrid approach when a FHIR server is used as the storage mechanism.
+
+  1. To establish the identity of a patient who is providing a Patient Reported Outcome a good practice is to have that patient/subject create a private key and to use that private key to generate an identity certificate which is shared with any other person or system who wants to be able to decrypt or verify information created by that subject.
+  1. In cases where the software components of a system do not support a subject using their own certificate, the FHIR server portion can implement a "signing proxy" that takes PRO information from a system that does not use PKI, and sign those resources at the edge of the ecosystem boundary to add an assertion about the provenance of FHIR resources at the time they enter the FHIR ecosystem.
+
+
+#### Establishing a key pair for the client
+
+How a FHIR client assures its identity and creates a private key and CA-signed certificate is important to describe in a 21 CFR Part 11 PRO implementation guide.
+
+To sign its provided resources, each FHIR client will require a private key and an ID certificate.
+
+The ID certificate should be:
+
+  * Only issued to verified patients
+  * Signed by a (reputable) CA
+  * Uniquely identified
+  * Available to auditors when signatures need to be verified
+  * Able to be revoked and revocation status made available to auditors
+  * Able to expire and be reissued
+  * Provide Detached Signatures for Resources in Provenance Resources
+
+The ID certificate should also be made available to any system or person who needs to verify the authenticity of signed resources.
+
+### Provenance and Resource Signing
+
+Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.
+
+A Provenance resource contains a pointer to the FHIR system's concept of who made a change to a resource, what version of the FHIR server's resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
+For 21 CFR Part 11 compliance, a Provenance resource should provide:
+  * A link to the server instance of the resource the signature is for
+  * A signature
+  * The identity or fingerprint of the currently-issued ID certificate that corresponds to the secret key used to sign the resource.
+When a signature is provided it is important to note a known corresponding ID certificate. Because ID certificates can be reissued, and a single FHIR client could have multiple valid identity certificates published at once.
+
+```
+{
+  "resourceType": "Provenance",
+  "id": "42",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Example provenance resource 42.</div>"
+  },
+  "target": [
+    {
+      "reference": "QuestionnaireResponse/42/_history/1"
+    }
+  ],
+  "occurredPeriod": {
+    "start": "2019-10-25",
+    "end": "2019-10-25"
+  },
+  "recorded": "2015-06-27T08:39:24+10:00",
+  "policy": [
+    "http://acme.com/fhir/Consent/25"
+  ],
+  "location": {
+    "reference": "Location/1"
+  },
+  "reason": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+          "code": "HCOMPL",
+          "display": "Compliance"
+        }
+      ]
+    }
+  ],
+  "agent": [
+    {
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "AUT"
+          }
+        ]
+      },
+      "who": {
+        "identifier": {
+          "system": "urn:ietf:rfc:3986",
+          "value": "mailto:odm-fhir-gw@chip.org"
+        }
+      }
+    },
+    {
+      "id": "cert-04121321-4af5-424c-a0e1-ed3aab1c349d",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "DEV"
+          }
+        ]
+      },
+      "who": {
+        "reference": "Device/04121321-4af5-424c-a0e1-ed3aab1c349d"
+      }
+    }
+  ],
+  "signature": {
+    "type": [
+        {
+          "system": "urn:iso-astm:E1762-95:2013",
+          "code": "1.2.840.113549.1.1.1",
+          "display": "Verification Signature"
+        }
+      ],
+    "when": "2019-10-25T01:39:24+10:00",
+    "who": {
+        "reference": "Patient/1"
+      },
+    "targetFormat": "application/fhir+json",
+    "sigFormat": "application/signature+json",
+    "data": "9139be98f16cf53d22da63cb559bb06a93338da6a344e28a4285c2da33facb7080d26e7a09483779a016eebc207602fc3f90492c2f2fb8143f0fe30fd855593d"
+  }
+}
+```
+
+
+### Cryptographic Journaling and Auditing
+
+
+To audit every resource of interest the following process needs to be supported:
+  1. The resource is retrieved
+  2. The corresponding Provenance entry is retrieved
+  3. The certificate referenced in the Provenance entry is retrieved
+  4. The certificate (from 3) is used to validate that the signature (retreived in 2) corresponds to the canonical version of the resource (retrieved in 1)
 
 
 <!-- {% raw %}>{% include link-list.md %} {% endraw %}-->

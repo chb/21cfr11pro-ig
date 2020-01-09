@@ -295,6 +295,91 @@ For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
 When a signature is provided it is important to note a known corresponding ID certificate. Because ID certificates can be reissued, and a single FHIR client could have multiple valid identity certificates published at once.</li>
 </ul>
 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "resourceType": "Provenance",
+  "id": "42",
+  "text": {
+    "status": "generated",
+    "div": "&lt;div xmlns=\"http://www.w3.org/1999/xhtml\"&gt;Example provenance resource 42.&lt;/div&gt;"
+  },
+  "target": [
+    {
+      "reference": "QuestionnaireResponse/42/_history/1"
+    }
+  ],
+  "occurredPeriod": {
+    "start": "2019-10-25",
+    "end": "2019-10-25"
+  },
+  "recorded": "2015-06-27T08:39:24+10:00",
+  "policy": [
+    "http://acme.com/fhir/Consent/25"
+  ],
+  "location": {
+    "reference": "Location/1"
+  },
+  "reason": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",
+          "code": "HCOMPL",
+          "display": "Compliance"
+        }
+      ]
+    }
+  ],
+  "agent": [
+    {
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "AUT"
+          }
+        ]
+      },
+      "who": {
+        "identifier": {
+          "system": "urn:ietf:rfc:3986",
+          "value": "mailto:odm-fhir-gw@chip.org"
+        }
+      }
+    },
+    {
+      "id": "cert-04121321-4af5-424c-a0e1-ed3aab1c349d",
+      "type": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "DEV"
+          }
+        ]
+      },
+      "who": {
+        "reference": "Device/04121321-4af5-424c-a0e1-ed3aab1c349d"
+      }
+    }
+  ],
+  "signature": {
+    "type": [
+        {
+          "system": "urn:iso-astm:E1762-95:2013",
+          "code": "1.2.840.113549.1.1.1",
+          "display": "Verification Signature"
+        }
+      ],
+    "when": "2019-10-25T01:39:24+10:00",
+    "who": {
+        "reference": "Patient/1"
+      },
+    "targetFormat": "application/fhir+json",
+    "sigFormat": "application/signature+json",
+    "data": "9139be98f16cf53d22da63cb559bb06a93338da6a344e28a4285c2da33facb7080d26e7a09483779a016eebc207602fc3f90492c2f2fb8143f0fe30fd855593d"
+  }
+}
+</code></pre></div></div>
+
 <h3 id="cryptographic-journaling-and-auditing">Cryptographic Journaling and Auditing</h3>
 
 <p>To audit every resource of interest the following process needs to be supported:</p>
@@ -628,14 +713,14 @@ When a signature is provided it is important to note a known corresponding ID ce
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, Jan 8, 2020 17:45+1100">2020-01-08</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Jan 9, 2020 11:31+1100">2020-01-09</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, Jan 8, 2020 17:45+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Jan 9, 2020 11:31+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
