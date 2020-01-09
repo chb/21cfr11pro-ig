@@ -20,7 +20,7 @@ There are requirements in 21 CFR 11 that can't be met with strict adherence to t
 
 The below sections describe the relevant 21 CFR 11 requirements and their applicability to this extension of the PRO Implementation Guide.
 
-#### 11.10 Controls for closed systems.
+#### 21 CFR 11.10 Controls for closed systems.
 
 ```
 Persons who use closed systems to create, modify, maintain, or transmit electronic records shall employ procedures and controls designed to ensure the authenticity, integrity, and, when appropriate, the confidentiality of electronic records, and to ensure that the signer cannot readily repudiate the signed record as not genuine.[...]
@@ -32,7 +32,7 @@ Non-repudiation can be implemented with a managed public key infrastructure and 
 
 The integrity requirement can be met with a capability to independently verify the totality of the state of the stored records (cryptographic journaling) and the individual records themselves (client digital signing).
 
-#### 11.10(a)
+#### 21 CFR 11.10(a)
 
 ```
 (a) Validation of systems to ensure accuracy, reliability, consistent intended performance, and the ability to discern invalid or altered records.
@@ -42,7 +42,7 @@ The significant part of this paragraph is the ability to discern invalid or alte
 
 This implementation guide recommends the use of a cryptographically-secured journal with a copy of that journal data stored apart from the collected PRO data.
 
-#### 11.10(e)
+#### 21 CFR 11.10(e)
 
 ```
 (e) Use of secure, computer-generated, time-stamped audit trails to independently record the date and time of operator entries and actions that create, modify, or delete electronic records. Record changes shall not obscure previously recorded information. Such audit trail documentation shall be retained for a period at least as long as that required for the subject electronic records and shall be available for agency review and copying.
