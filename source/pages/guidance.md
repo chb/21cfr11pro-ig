@@ -37,6 +37,7 @@ The only two formats supported are JSON and XML bacause of their ability to be s
 **Step 2:** Support private keys, identity certificates and digital signing
 
 
+
 **Step 3:** Send resources with the HTTP `Prefer: return=representation` header set
 
 
@@ -47,17 +48,30 @@ Raise an alarm if the server does not return the same resource content as was se
 **Step 5:** Build and send a Provenance resource for properly persisted QuestionnaireResponse resources
 
 
+
 **Step 6:** Build a mechanism for updating the status of identity certificates
 
-
-### Implementation Guidance for tamper-proof transactions journal
-
-
+Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
+Make public keys available for storage by auditors for resource Provenance verification.
 
 
+### Implementation Guidance for tamper-proof transaction journal
 
 
-#### PROM Instrument and Meta data Repository Implementation
+The section outlines the implementation guidance for FHIR servers to ensure that resource changes are tracked in a journal that is able to provide tamper-evidence even in the case of a resource being deleted. Journals may be mirrored to an isolated location that is additive-only and write-only, or a cryptographic journal can be used.
+
+**Step 1:** Implement the FHIR server to maintain a transaction journal 
+
+The server should use the journal to store FHIR REST verbs, non-PHI metadata like resource ID, and a cryptographic hash of the changed resource's state.
+
+The transaction journal should be protected from tampering through remote transaction mirroring to a serperately secured security domain, or through cumulative cryptographic hashing. The implementation should be able to detect resource deletion and protect against replay attacks.
+
+An example of an off-the-shelf tool that can provide this kind of assurance is Amazon Web Services' Quantum Ledger Database (QLDB).
+
+**Step 2:** Implement a system integrity check
+
+The server should provide operators or auditors with a mechanism that compares the system state against the journal on request. The integrity checker should report the resources and time that system integrity was compromised.
+
 
 
 

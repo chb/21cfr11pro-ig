@@ -229,10 +229,7 @@ This is the
 <ul id="markdown-toc">
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
   <li><a href="#implementation-guidance-for-provenance-with-resource-signatures" id="markdown-toc-implementation-guidance-for-provenance-with-resource-signatures">Implementation Guidance for Provenance with resource signatures</a></li>
-  <li><a href="#implementation-guidance-for-tamper-proof-transactions-journal" id="markdown-toc-implementation-guidance-for-tamper-proof-transactions-journal">Implementation Guidance for tamper-proof transactions journal</a>    <ul>
-      <li><a href="#prom-instrument-and-meta-data-repository-implementation" id="markdown-toc-prom-instrument-and-meta-data-repository-implementation">PROM Instrument and Meta data Repository Implementation</a></li>
-    </ul>
-  </li>
+  <li><a href="#implementation-guidance-for-tamper-proof-transaction-journal" id="markdown-toc-implementation-guidance-for-tamper-proof-transaction-journal">Implementation Guidance for tamper-proof transaction journal</a></li>
 </ul>
 
 <h3 id="introduction">Introduction</h3>
@@ -267,9 +264,24 @@ This is the
 
 <p><strong>Step 6:</strong> Build a mechanism for updating the status of identity certificates</p>
 
-<h3 id="implementation-guidance-for-tamper-proof-transactions-journal">Implementation Guidance for tamper-proof transactions journal</h3>
+<p>Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
+Make public keys available for storage by auditors for resource Provenance verification.</p>
 
-<h4 id="prom-instrument-and-meta-data-repository-implementation">PROM Instrument and Meta data Repository Implementation</h4>
+<h3 id="implementation-guidance-for-tamper-proof-transaction-journal">Implementation Guidance for tamper-proof transaction journal</h3>
+
+<p>The section outlines the implementation guidance for FHIR servers to ensure that resource changes are tracked in a journal that is able to provide tamper-evidence even in the case of a resource being deleted. Journals may be mirrored to an isolated location that is additive-only and write-only, or a cryptographic journal can be used.</p>
+
+<p><strong>Step 1:</strong> Implement the FHIR server to maintain a transaction journal</p>
+
+<p>The server should use the journal to store FHIR REST verbs, non-PHI metadata like resource ID, and a cryptographic hash of the changed resource’s state.</p>
+
+<p>The transaction journal should be protected from tampering through remote transaction mirroring to a serperately secured security domain, or through cumulative cryptographic hashing. The implementation should be able to detect resource deletion and protect against replay attacks.</p>
+
+<p>An example of an off-the-shelf tool that can provide this kind of assurance is Amazon Web Services’ Quantum Ledger Database (QLDB).</p>
+
+<p><strong>Step 2:</strong> Implement a system integrity check</p>
+
+<p>The server should provide operators or auditors with a mechanism that compares the system state against the journal on request. The integrity checker should report the resources and time that system integrity was compromised.</p>
 
 
 
@@ -302,14 +314,14 @@ This is the
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Jan 9, 2020 15:53+1100">2020-01-09</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Jan 9, 2020 16:59+1100">2020-01-09</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Jan 9, 2020 15:53+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Jan 9, 2020 16:59+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
