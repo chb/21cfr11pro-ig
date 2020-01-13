@@ -93,8 +93,6 @@ Then `POST [BaseURL]/Provenance/` this Provenance resource to the server.
 
 **Step 6:** Raise an alarm to the user or operator if the server does not return the same _Provenance_ resource content as was sent.
 
-
-
 ### Implementation Guidance for tamper-proof transaction journal
 
 The section outlines the implementation guidance for FHIR servers to ensure that resource changes are tracked in a journal that is able to provide tamper-evidence even in the case of a resource being deleted. Journals may be mirrored to an isolated location that is additive-only and write-only, or a cryptographic journal can be used.

@@ -241,19 +241,23 @@ This is the
 
 <h3 id="build-a-mechanism-for-managing-client-keys-and-certificates">Build a mechanism for managing client keys and certificates</h3>
 
-<p><strong>Step 1:</strong> Build a mechanism for creating and securing a secret key</p>
+<p><strong>Step 1:</strong> Build a mechanism for creating and securing a client secret key</p>
 
 <p>Clients require both a secret key and an appropriately certified identity certificate that can be used to verify trust in the signer of Provenance data.</p>
 
 <p>In an app, or multi-client environment the best practical mechanism for generating a private key is the clientself-generating a private key and keeping that secure. For a gateway-based system with few clients it can be practical for a system operator or administrator to generate and secure the private key.</p>
 
-<p><strong>Step 2:</strong> Build a mechanism for obtaining a certified identity certificate from a certificate authority</p>
+<p><strong>Step 2:</strong> Implement a mechanism for obtaining a certified identity certificate from a certificate authority</p>
 
-<p><strong>Step 3:</strong> Build a mechanism for updating the status of an identity certificate
-Build or use a PKI infrastucture that maintains an OCSP or CRL repository.</p>
+<p>An implementor can decide on the most appropriate method of obtaining an identity certificate signed by a certifying authority trusted by the community of users and auditors to reliably establish identity and manage certificate status. This could either be a CA run as a managed PKI solution by the organisation implementing the PRO collection system, or a large public certificate authority with a good enough reputation for FDA and other auditors.</p>
 
-<p><strong>Step 4:</strong> Share identity certificates with auditing tools and personnel
-Make public keys available for storage by auditors for resource Provenance verification.</p>
+<p><strong>Step 3:</strong> Build a mechanism for updating the status of an identity certificate</p>
+
+<p>Build or use a PKI infrastucture that maintains an OCSP or CRL repository. If a client accidentally discloses a private key, or if a client proves to have been impersonated, then the certificate should be invalidated. Expired certificates are still valid for the period in which resources were signed, so any revocation or status database should distinguish between expired and invalidated certificates.</p>
+
+<p><strong>Step 4:</strong> Share identity certificates with auditing tools and personnel</p>
+
+<p>Make public identity keys available for storage by auditors for resource Provenance verification.</p>
 
 <h3 id="implementation-guidance-for-provenance-with-resource-signatures">Implementation Guidance for Provenance with resource signatures</h3>
 
@@ -370,14 +374,14 @@ Make public keys available for storage by auditors for resource Provenance verif
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Mon, Jan 13, 2020 14:48+1100">2020-01-13</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Mon, Jan 13, 2020 15:39+1100">2020-01-13</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Mon, Jan 13, 2020 14:48+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Mon, Jan 13, 2020 15:39+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
