@@ -34,10 +34,11 @@ An implementor can decide on the most appropriate method of obtaining an identit
 
 **Step 3:** Build a mechanism for updating the status of an identity certificate
 
-Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
+Build or use a PKI infrastucture that maintains an OCSP or CRL repository. If a client accidentally discloses a private key, or if a client proves to have been impersonated, then the certificate should be invalidated. Expired certificates are still valid for the period in which resources were signed, so any revocation or status database should distinguish between expired and invalidated certificates.
 
 **Step 4:** Share identity certificates with auditing tools and personnel
-Make public keys available for storage by auditors for resource Provenance verification.
+
+Make public identity keys available for storage by auditors for resource Provenance verification.
 
 
 ### Implementation Guidance for Provenance with resource signatures
@@ -95,7 +96,6 @@ Then `POST [BaseURL]/Provenance/` this Provenance resource to the server.
 
 
 ### Implementation Guidance for tamper-proof transaction journal
-
 
 The section outlines the implementation guidance for FHIR servers to ensure that resource changes are tracked in a journal that is able to provide tamper-evidence even in the case of a resource being deleted. Journals may be mirrored to an isolated location that is additive-only and write-only, or a cryptographic journal can be used.
 
