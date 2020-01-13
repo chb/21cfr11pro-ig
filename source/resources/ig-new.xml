@@ -17,7 +17,7 @@
   <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig"/>
   <version value="0.0.1"/>
   <name value="PatientReportedOutcomes21CFR11"/>
-  <title value="Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml"/>
+  <title value="Patient Reported Outcomes 21 CFR Part 11 Extension"/>
   <status value="draft"/>
   <publisher value="HL7 International - FHIR Infrastructure Work Group"/>
   <contact>

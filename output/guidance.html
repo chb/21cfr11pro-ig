@@ -5,10 +5,10 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
    <meta charset="UTF-8"/>
-  <title>Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml</title>
+  <title>Patient Reported Outcomes 21 CFR Part 11 Extension</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml Implemenation Guide" />
+<meta name="description" content="Patient Reported Outcomes 21 CFR Part 11 Extension Implemenation Guide" />
 <meta name="author" content="HL7 International - FHIR Infrastructure Work Group"/>
   <link href="fhir.css" rel="stylesheet"/>
 
@@ -74,7 +74,7 @@ can only resize using html  or css ;-(
 
 
       <div id="project-status" class="project-status"> <!-- ig title text -->
-        <b>Patient Reported Outcomes 21 CFR Part 11 Addendum - ig.xml Implementation Guide</b>
+        <b>Patient Reported Outcomes 21 CFR Part 11 Extension Implementation Guide</b>
         
         (Release 0.0.1 )
         
@@ -228,6 +228,7 @@ This is the
 
 <ul id="markdown-toc">
   <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#build-a-mechanism-for-managing-client-keys-and-certificates" id="markdown-toc-build-a-mechanism-for-managing-client-keys-and-certificates">Build a mechanism for managing client keys and certificates</a></li>
   <li><a href="#implementation-guidance-for-provenance-with-resource-signatures" id="markdown-toc-implementation-guidance-for-provenance-with-resource-signatures">Implementation Guidance for Provenance with resource signatures</a></li>
   <li><a href="#implementation-guidance-for-tamper-proof-transaction-journal" id="markdown-toc-implementation-guidance-for-tamper-proof-transaction-journal">Implementation Guidance for tamper-proof transaction journal</a></li>
 </ul>
@@ -238,6 +239,22 @@ This is the
 
 <p>This implementation guide is additive to the PRO IG and assumes the guidance of the PRO IG has been followed before reading this IG.</p>
 
+<h3 id="build-a-mechanism-for-managing-client-keys-and-certificates">Build a mechanism for managing client keys and certificates</h3>
+
+<p><strong>Step 1:</strong> Build a mechanism for creating and securing a secret key</p>
+
+<p>Clients require both a secret key and an appropriately certified identity certificate that can be used to verify trust in the signer of Provenance data.</p>
+
+<p>In an app, or multi-client environment the best practical mechanism for generating a private key is the clientself-generating a private key and keeping that secure. For a gateway-based system with few clients it can be practical for a system operator or administrator to generate and secure the private key.</p>
+
+<p><strong>Step 2:</strong> Build a mechanism for obtaining a certified identity certificate from a certificate authority</p>
+
+<p><strong>Step 3:</strong> Build a mechanism for updating the status of an identity certificate
+Build or use a PKI infrastucture that maintains an OCSP or CRL repository.</p>
+
+<p><strong>Step 4:</strong> Share identity certificates with auditing tools and personnel
+Make public keys available for storage by auditors for resource Provenance verification.</p>
+
 <h3 id="implementation-guidance-for-provenance-with-resource-signatures">Implementation Guidance for Provenance with resource signatures</h3>
 
 <p>The section outlines the implementation guidance for the various actors involved in the delivery of Provenance resources with external digital signatures for created and updated resources such as PRO QuestionnaireResponses.</p>
@@ -246,7 +263,7 @@ This is the
 
 <p><strong>Step 1:</strong> Support the FHIR API for POSTing <code class="highlighter-rouge">QuestionnaireResponse</code>s and <code class="highlighter-rouge">Provenance</code> resources.</p>
 
-<p>The only two formats supported are JSON and XML bacause of their ability to be structured in a canonical form.</p>
+<p>The only formats is JSON to support signing of the canonical form. XML guidance may be forthcoming.</p>
 
 <p><code class="highlighter-rouge">POST [BaseURL]/QuestionnaireResponse/</code></p>
 
@@ -254,18 +271,57 @@ This is the
 
 <p><strong>Step 2:</strong> Support private keys, identity certificates and digital signing</p>
 
+<p>The FHIR client should generate or have access to a key pair. The secret key is required for signing, and the corresponding identity certificate is certified by a reputable certifying authority</p>
+
 <p><strong>Step 3:</strong> Send resources with the HTTP <code class="highlighter-rouge">Prefer: return=representation</code> header set</p>
+
+<p>The <code class="highlighter-rouge">Prefer</code> header requests a full copy of the changed resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a <code class="highlighter-rouge">Provenance</code> resource.</p>
 
 <p><strong>Step 4:</strong> Implement an user or operator alert for system integrity failures</p>
 
-<p>Raise an alarm if the server does not return the same resource content as was sent.</p>
+<p>Raise an alarm to the user or operator if the server does not return the same resource content as was sent.</p>
 
 <p><strong>Step 5:</strong> Build and send a Provenance resource for properly persisted QuestionnaireResponse resources</p>
 
-<p><strong>Step 6:</strong> Build a mechanism for updating the status of identity certificates</p>
+<p>This step contains a series of sub-steps that cover the generation of data for inclusion in the client-generated Provenance resource.</p>
 
-<p>Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
-Make public keys available for storage by auditors for resource Provenance verification.</p>
+<ul>
+  <li>Convert the QuestionnaireResponse JSON to <a href="http://wiki.laptop.org/go/Canonical_JSON">canonical form</a></li>
+  <li>Use the client’s secret key and the canoncal JSON to generate a signature using SHA256 with RSA key</li>
+  <li>Create a Provenance resource and populate it with:
+    <ul>
+      <li>An external resource signature with coding data type:
+        <ul>
+          <li>System: “urn:iso-astm:E1762-95:2013”</li>
+          <li>Code OID: “1.2.840.10065.1.12.1.14”</li>
+          <li>Display: “SHA-256 Source Signature”</li>
+          <li>Signature: the base64 encoded version of the generated signature from above</li>
+        </ul>
+      </li>
+      <li>An agent key with:
+        <ul>
+          <li>Agent Coding:
+            <ul>
+              <li>System: http://dicom.nema.org/resources/ontology/DCM</li>
+              <li>Code: 110150 (Application Audit participant role ID of software application)</li>
+            </ul>
+          </li>
+          <li>Agent Thumbprint Coding
+            <ul>
+              <li>System: “urn:pki:thumbprint”</li>
+              <li>Thumbprint: The client’s current identity certificate thumbprint</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>A resource target referencing the server resource instance</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Then <code class="highlighter-rouge">POST [BaseURL]/Provenance/</code> this Provenance resource to the server.</p>
+
+<p><strong>Step 6:</strong> Raise an alarm to the user or operator if the server does not return the same <em>Provenance</em> resource content as was sent.</p>
 
 <h3 id="implementation-guidance-for-tamper-proof-transaction-journal">Implementation Guidance for tamper-proof transaction journal</h3>
 
@@ -314,14 +370,14 @@ Make public keys available for storage by auditors for resource Provenance verif
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Jan 9, 2020 16:59+1100">2020-01-09</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Mon, Jan 13, 2020 14:48+1100">2020-01-13</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Jan 9, 2020 16:59+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Mon, Jan 13, 2020 14:48+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

@@ -19,6 +19,27 @@ The implementation guidance outlined in this page provides useful information fo
 
 This implementation guide is additive to the PRO IG and assumes the guidance of the PRO IG has been followed before reading this IG.
 
+
+### Build a mechanism for managing client keys and certificates
+
+**Step 1:** Build a mechanism for creating and securing a client secret key 
+
+Clients require both a secret key and an appropriately certified identity certificate that can be used to verify trust in the signer of Provenance data. 
+
+In an app, or multi-client environment the best practical mechanism for generating a private key is the clientself-generating a private key and keeping that secure. For a gateway-based system with few clients it can be practical for a system operator or administrator to generate and secure the private key. 
+
+**Step 2:** Implement a mechanism for obtaining a certified identity certificate from a certificate authority
+
+An implementor can decide on the most appropriate method of obtaining an identity certificate signed by a certifying authority trusted by the community of users and auditors to reliably establish identity and manage certificate status. This could either be a CA run as a managed PKI solution by the organisation implementing the PRO collection system, or a large public certificate authority with a good enough reputation for FDA and other auditors.
+
+**Step 3:** Build a mechanism for updating the status of an identity certificate
+
+Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
+
+**Step 4:** Share identity certificates with auditing tools and personnel
+Make public keys available for storage by auditors for resource Provenance verification.
+
+
 ### Implementation Guidance for Provenance with resource signatures
 
 The section outlines the implementation guidance for the various actors involved in the delivery of Provenance resources with external digital signatures for created and updated resources such as PRO QuestionnaireResponses.
@@ -27,7 +48,7 @@ Developers can follow these steps to implement a FHIR client that creates Proven
 
 **Step 1:** Support the FHIR API for POSTing `QuestionnaireResponse`s and `Provenance` resources.
 
-The only two formats supported are JSON and XML bacause of their ability to be structured in a canonical form.
+The only formats is JSON to support signing of the canonical form. XML guidance may be forthcoming.
 
 `POST [BaseURL]/QuestionnaireResponse/`
 
@@ -36,23 +57,41 @@ The only two formats supported are JSON and XML bacause of their ability to be s
 
 **Step 2:** Support private keys, identity certificates and digital signing
 
-
+The FHIR client should generate or have access to a key pair. The secret key is required for signing, and the corresponding identity certificate is certified by a reputable certifying authority
 
 **Step 3:** Send resources with the HTTP `Prefer: return=representation` header set
 
+The `Prefer` header requests a full copy of the changed resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a `Provenance` resource.
 
 **Step 4:** Implement an user or operator alert for system integrity failures
 
-Raise an alarm if the server does not return the same resource content as was sent.
+Raise an alarm to the user or operator if the server does not return the same resource content as was sent.
 
 **Step 5:** Build and send a Provenance resource for properly persisted QuestionnaireResponse resources
 
+This step contains a series of sub-steps that cover the generation of data for inclusion in the client-generated Provenance resource.
 
+  * Convert the QuestionnaireResponse JSON to [canonical form](http://wiki.laptop.org/go/Canonical_JSON)
+  * Use the client's secret key and the canoncal JSON to generate a signature using SHA256 with RSA key
+  * Create a Provenance resource and populate it with:
+    * An external resource signature with coding data type:
+      * System: "urn:iso-astm:E1762-95:2013"
+      * Code OID: "1.2.840.10065.1.12.1.14"
+      * Display: "SHA-256 Source Signature"
+      * Signature: the base64 encoded version of the generated signature from above
+    * An agent key with:
+      * Agent Coding: 
+        * System: http://dicom.nema.org/resources/ontology/DCM
+        * Code: 110150 (Application Audit participant role ID of software application)
+      * Agent Thumbprint Coding
+        * System: "urn:pki:thumbprint"
+        * Thumbprint: The client's current identity certificate thumbprint
+    * A resource target referencing the server resource instance
 
-**Step 6:** Build a mechanism for updating the status of identity certificates
+Then `POST [BaseURL]/Provenance/` this Provenance resource to the server.
 
-Build or use a PKI infrastucture that maintains an OCSP or CRL repository. 
-Make public keys available for storage by auditors for resource Provenance verification.
+**Step 6:** Raise an alarm to the user or operator if the server does not return the same _Provenance_ resource content as was sent.
+
 
 
 ### Implementation Guidance for tamper-proof transaction journal
