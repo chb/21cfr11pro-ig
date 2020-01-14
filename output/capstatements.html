@@ -220,47 +220,21 @@ This is the
   <!-- TOC  the css styling for this is \pages\assets\css\project.css under 'markdown-toc' -->
 
 <ul id="markdown-toc">
-  <li><a href="#conformance-requirements-for-actors-supporting-basic-questionnaire-fixed-formats-administration" id="markdown-toc-conformance-requirements-for-actors-supporting-basic-questionnaire-fixed-formats-administration">Conformance Requirements for Actors supporting Basic Questionnaire (Fixed Formats) Administration</a>    <ul>
-      <li><a href="#prom-instrument-and-metadata-repository-conformance-requirements" id="markdown-toc-prom-instrument-and-metadata-repository-conformance-requirements">PROM Instrument and Metadata Repository Conformance Requirements</a>        <ul>
+  <li><a href="#conformance-requirements-for-actors-supporting-provenance" id="markdown-toc-conformance-requirements-for-actors-supporting-provenance">Conformance Requirements for Actors supporting Provenance</a>    <ul>
+      <li><a href="#ehr-or-care-delivery-health-it-system-conformance-requirements" id="markdown-toc-ehr-or-care-delivery-health-it-system-conformance-requirements">EHR or Care Delivery Health IT System Conformance Requirements</a>        <ul>
           <li><a href="#behavior-and-formats" id="markdown-toc-behavior-and-formats">Behavior and Formats</a></li>
           <li><a href="#profiles-and-interactions" id="markdown-toc-profiles-and-interactions">Profiles and Interactions</a></li>
           <li><a href="#search-and-other-parameters" id="markdown-toc-search-and-other-parameters">Search and Other Parameters</a></li>
           <li><a href="#security-requirements" id="markdown-toc-security-requirements">Security Requirements</a></li>
-        </ul>
-      </li>
-      <li><a href="#ehr-or-care-delivery-health-it-system-conformance-requirements" id="markdown-toc-ehr-or-care-delivery-health-it-system-conformance-requirements">EHR or Care Delivery Health IT System Conformance Requirements</a>        <ul>
-          <li><a href="#behavior-and-formats-1" id="markdown-toc-behavior-and-formats-1">Behavior and Formats</a></li>
-          <li><a href="#profiles-and-interactions-1" id="markdown-toc-profiles-and-interactions-1">Profiles and Interactions</a></li>
-          <li><a href="#search-and-other-parameters-1" id="markdown-toc-search-and-other-parameters-1">Search and Other Parameters</a></li>
-          <li><a href="#security-requirements-1" id="markdown-toc-security-requirements-1">Security Requirements</a></li>
           <li><a href="#smart-on-fhir-app-interactions" id="markdown-toc-smart-on-fhir-app-interactions">SMART on FHIR App Interactions</a></li>
         </ul>
       </li>
       <li><a href="#external-pro-administration-system-conformance-requirements" id="markdown-toc-external-pro-administration-system-conformance-requirements">External PRO Administration System Conformance Requirements</a>        <ul>
-          <li><a href="#behavior-and-formats-2" id="markdown-toc-behavior-and-formats-2">Behavior and Formats</a></li>
-          <li><a href="#profiles-and-interactions-2" id="markdown-toc-profiles-and-interactions-2">Profiles and Interactions</a></li>
-          <li><a href="#search-and-other-parameters-2" id="markdown-toc-search-and-other-parameters-2">Search and Other Parameters</a></li>
-          <li><a href="#security-requirements-2" id="markdown-toc-security-requirements-2">Security Requirements</a></li>
+          <li><a href="#behavior-and-formats-1" id="markdown-toc-behavior-and-formats-1">Behavior and Formats</a></li>
+          <li><a href="#profiles-and-interactions-1" id="markdown-toc-profiles-and-interactions-1">Profiles and Interactions</a></li>
+          <li><a href="#search-and-other-parameters-1" id="markdown-toc-search-and-other-parameters-1">Search and Other Parameters</a></li>
+          <li><a href="#security-requirements-1" id="markdown-toc-security-requirements-1">Security Requirements</a></li>
           <li><a href="#smart-on-fhir-app-interactions-1" id="markdown-toc-smart-on-fhir-app-interactions-1">SMART on FHIR App Interactions</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><a href="#conformance-requirements-for-actors-supporting-adaptive-questionnaires-cat-or-irt-based-questionnaires-administration" id="markdown-toc-conformance-requirements-for-actors-supporting-adaptive-questionnaires-cat-or-irt-based-questionnaires-administration">Conformance Requirements for Actors supporting Adaptive Questionnaires (CAT or IRT based questionnaires) Administration</a>    <ul>
-      <li><a href="#patient-facing-administration-app-conformance-requirements" id="markdown-toc-patient-facing-administration-app-conformance-requirements">Patient Facing Administration App Conformance Requirements</a>        <ul>
-          <li><a href="#behavior-and-formats-3" id="markdown-toc-behavior-and-formats-3">Behavior and Formats</a></li>
-          <li><a href="#profiles-and-interactions-3" id="markdown-toc-profiles-and-interactions-3">Profiles and Interactions</a></li>
-          <li><a href="#adaptive-questionnaire-operations" id="markdown-toc-adaptive-questionnaire-operations">Adaptive Questionnaire Operations</a></li>
-          <li><a href="#search-and-other-parameters-3" id="markdown-toc-search-and-other-parameters-3">Search and Other Parameters</a></li>
-          <li><a href="#security-requirements-3" id="markdown-toc-security-requirements-3">Security Requirements</a></li>
-        </ul>
-      </li>
-      <li><a href="#external-assessment-center-conformance-requirements" id="markdown-toc-external-assessment-center-conformance-requirements">External Assessment Center Conformance Requirements</a>        <ul>
-          <li><a href="#behavior-and-formats-4" id="markdown-toc-behavior-and-formats-4">Behavior and Formats</a></li>
-          <li><a href="#profiles-and-interactions-4" id="markdown-toc-profiles-and-interactions-4">Profiles and Interactions</a></li>
-          <li><a href="#adaptive-questionnaire-operations-1" id="markdown-toc-adaptive-questionnaire-operations-1">Adaptive Questionnaire Operations</a></li>
-          <li><a href="#search-and-other-parameters-4" id="markdown-toc-search-and-other-parameters-4">Search and Other Parameters</a></li>
-          <li><a href="#security-requirements-4" id="markdown-toc-security-requirements-4">Security Requirements</a></li>
         </ul>
       </li>
     </ul>
@@ -269,23 +243,24 @@ This is the
 
   <!-- end TOC -->
 
-<p>The section outlines conformance requirements for each of the PRO actors which includes the specific profiles, operations, security mechanisms and search parameters that need to be supported.</p>
+<p>The section outlines conformance requirements for each of the PRO 21 CFR 11 actors which include specific profiles, operations, security mechanisms and search parameters that need to be supported.</p>
 
-<h3 id="conformance-requirements-for-actors-supporting-basic-questionnaire-fixed-formats-administration">Conformance Requirements for Actors supporting Basic Questionnaire (Fixed Formats) Administration</h3>
+<h3 id="conformance-requirements-for-actors-supporting-provenance">Conformance Requirements for Actors supporting Provenance</h3>
 
-<p>This section outlines conformance requirements for actors supporting the Basic Questionnaire administration.</p>
+<p>This section outlines conformance requirements for actors supporting the Provenance resource.</p>
 
-<h4 id="prom-instrument-and-metadata-repository-conformance-requirements">PROM Instrument and Metadata Repository Conformance Requirements</h4>
+<h4 id="ehr-or-care-delivery-health-it-system-conformance-requirements">EHR or Care Delivery Health IT System Conformance Requirements</h4>
 
-<p>The following are the conformance requirements for the PROM Instrument and Meta data Repository.</p>
+<p>The following are the conformance requirements for the EHR or Care Delivery Health IT System.</p>
 
 <h5 id="behavior-and-formats">Behavior and Formats</h5>
 
-<p>The PROM Instrument and Meta data Repository <strong>SHALL</strong>:</p>
+<p>The EHR or Care Delivery Health IT System <strong>SHALL</strong>:</p>
 <ul>
   <li>Implement the RESTful behavior according to the <a href="http://hl7.org/fhir/http.html">FHIR HTTP Specification</a>.</li>
   <li>Support <strong>json</strong> resource formats for all PRO interactions.</li>
   <li>Declare a CapabilityStatement identifying the list of profiles, operations and search parameters supported.</li>
+  <li>Respond to requests with the <code class="highlighter-rouge">Prefer: return=representation</code> header set with the full JSON of the server resource</li>
 </ul>
 
 <hr/>
@@ -295,113 +270,13 @@ The FHIR HTTP specification outlines specific requirements on how to deal with s
 <hr/>
 <h5 id="profiles-and-interactions">Profiles and Interactions</h5>
 
-<p>The PROM Instrument and Meta data Repository needs to implement the profile specific interactions as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table (for example the first row) is as follows</p>
-
-<p>The PROM Instrument and Metadata Repository <strong>SHALL</strong> support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile Name</th>
-      <th style="text-align: right">create</th>
-      <th style="text-align: right">read</th>
-      <th style="text-align: right">search (type level)</th>
-      <th style="text-align: right">vread</th>
-      <th style="text-align: right">history (instance level)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHOULD</td>
-      <td style="text-align: right">SHOULD</td>
-    </tr>
-  </tbody>
-</table>
-
-<h5 id="search-and-other-parameters">Search and Other Parameters</h5>
-
-<p>The PROM Instrument and Meta data Repository needs to implement the search parameters as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table (for example the first row) is as follows</p>
-
-<p>The PROM Instrument and Metadata Repository <strong>SHALL</strong> support _id, identifier, combination of identifier &amp; version search parameters and _summary search result parameters for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile Name</th>
-      <th style="text-align: right">SEARCH and Search Result parameters and combinations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire</a></td>
-      <td style="text-align: right">_id (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier &amp; version (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">_summary (SHALL)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h5 id="security-requirements">Security Requirements</h5>
-
-<p>The PROM Instrument and Meta data Repository <strong>SHALL</strong> support the Communication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
-
-<p>The PROM Instrument and Meta data Repository <strong>SHALL</strong> support the Authenitication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#authentication">FHIR Security Specification</a></p>
-
-<p>The PROM Instrument and Meta data Repository <strong>SHOULD</strong> support other security recommendations outlined in FHIR Security as appropriate.</p>
-
-<h4 id="ehr-or-care-delivery-health-it-system-conformance-requirements">EHR or Care Delivery Health IT System Conformance Requirements</h4>
-
-<p>The following are the conformance requirements for the EHR or Care Delivery Health IT System.</p>
-
-<h5 id="behavior-and-formats-1">Behavior and Formats</h5>
-
-<p>The EHR or Care Delivery Health IT System <strong>SHALL</strong>:</p>
-<ul>
-  <li>Implement the RESTful behavior according to the <a href="http://hl7.org/fhir/http.html">FHIR HTTP Specification</a>.</li>
-  <li>Support <strong>json</strong> resource formats for all PRO interactions.</li>
-  <li>Declare a CapabilityStatement identifying the list of profiles, operations and search parameters supported.</li>
-</ul>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The FHIR HTTP specification outlines specific requirements on how to deal with successful operations, invalid parameters, unauthorized request, insufficient scopes, unknown resources etc.</p>
-
-<hr/>
-<h5 id="profiles-and-interactions-1">Profiles and Interactions</h5>
-
 <p>The EHR or Care Delivery Health IT System needs to implement the profile specific interactions as specified table below.</p>
 
 <hr/>
 <p><strong>Implementation Note</strong>
 The way to read the table (for example the first row) is as follows</p>
 
-<p>The EHR or Care Delivery Health IT System <strong>SHALL</strong> support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC Questionnaire profile.</p>
+<p>The EHR or Care Delivery Health IT System <strong>SHALL</strong> support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC QuestionnaireResponse profile.</p>
 
 <hr/>
 
@@ -418,14 +293,6 @@ The way to read the table (for example the first row) is as follows</p>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHOULD</td>
-      <td style="text-align: right">SHOULD</td>
-    </tr>
-    <tr>
       <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html">SDC QuestionnaireResponse</a></td>
       <td style="text-align: right">SHALL</td>
       <td style="text-align: right">SHALL</td>
@@ -434,16 +301,8 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: right">SHOULD</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a name="eed760d6-980d-4682-8aab-01b9417d31c4">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results / Observation - Note1</a></td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/servicerequest.html">ServiceRequest - Note2</a></td>
-      <td style="text-align: right">MAY</td>
+      <td style="text-align: left"><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-provenance.html">Provenance</a></td>
+      <td style="text-align: right">SHALL</td>
       <td style="text-align: right">MAY</td>
       <td style="text-align: right">MAY</td>
       <td style="text-align: right">MAY</td>
@@ -464,7 +323,7 @@ We are requesting feedback from pilot sites and challenge participants on whethe
 
 <hr/>
 
-<h5 id="search-and-other-parameters-1">Search and Other Parameters</h5>
+<h5 id="search-and-other-parameters">Search and Other Parameters</h5>
 
 <p>The EHR or Care Delivery Health IT System needs to implement the search parameters as specified below.</p>
 
@@ -525,7 +384,7 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: right">authored (SHALL)</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a name="f3cda97a-e902-427f-93f8-b39dfb1ccd23">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results - Observation</a></td>
+      <td style="text-align: left"><a name="8bea17f7-db03-4817-86df-247be538047a">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results - Observation</a></td>
       <td style="text-align: right">patient (SHALL)</td>
     </tr>
     <tr>
@@ -551,7 +410,7 @@ The way to read the table (for example the first row) is as follows</p>
   </tbody>
 </table>
 
-<h5 id="security-requirements-1">Security Requirements</h5>
+<h5 id="security-requirements">Security Requirements</h5>
 
 <p>The EHR or Care Delivery Health IT System <strong>SHALL</strong> support the Communication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
 
@@ -573,7 +432,7 @@ The way to read the table (for example the first row) is as follows</p>
 
 <p>The following are the conformance requirements for the External PRO Administration System.</p>
 
-<h5 id="behavior-and-formats-2">Behavior and Formats</h5>
+<h5 id="behavior-and-formats-1">Behavior and Formats</h5>
 
 <p>The External PRO Administration System <strong>SHALL</strong>:</p>
 <ul>
@@ -587,7 +446,7 @@ The way to read the table (for example the first row) is as follows</p>
 The FHIR HTTP specification outlines specific requirements on how to deal with successful operations, invalid parameters, unauthorized request, insufficient scopes, unknown resources etc.</p>
 
 <hr/>
-<h5 id="profiles-and-interactions-2">Profiles and Interactions</h5>
+<h5 id="profiles-and-interactions-1">Profiles and Interactions</h5>
 
 <p>The External PRO Administration System needs to implement the profile specific interactions as specified below.</p>
 
@@ -628,7 +487,7 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: right">SHOULD</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a name="5e2fc8f6-f9ff-4725-9238-6dc09b804423">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results / Observation - Note1</a></td>
+      <td style="text-align: left"><a name="eb16476b-b702-4080-8381-33c4d7e0e4e1">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results / Observation - Note1</a></td>
       <td style="text-align: right">MAY</td>
       <td style="text-align: right">MAY</td>
       <td style="text-align: right">MAY</td>
@@ -658,7 +517,7 @@ We are requesting feedback from pilot sites and challenge participants on whethe
 
 <hr/>
 
-<h5 id="search-and-other-parameters-2">Search and Other Parameters</h5>
+<h5 id="search-and-other-parameters-1">Search and Other Parameters</h5>
 
 <p>The External PRO Administration System needs to implement the search parameters as specified below.</p>
 
@@ -719,7 +578,7 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: right">authored (SHALL)</td>
     </tr>
     <tr>
-      <td style="text-align: left"><a name="88c91721-a2c8-42b8-a671-01c62aebc012">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results - Observation</a></td>
+      <td style="text-align: left"><a name="b5b615be-fe81-4726-8d61-e193734128f7">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results - Observation</a></td>
       <td style="text-align: right">patient (SHALL)</td>
     </tr>
     <tr>
@@ -745,7 +604,7 @@ The way to read the table (for example the first row) is as follows</p>
   </tbody>
 </table>
 
-<h5 id="security-requirements-2">Security Requirements</h5>
+<h5 id="security-requirements-1">Security Requirements</h5>
 
 <p>The External PRO Administration System <strong>SHALL</strong> support the Communication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
 
@@ -762,365 +621,6 @@ The way to read the table (for example the first row) is as follows</p>
 <p>The External PRO Administration System <strong>SHALL</strong> request information from EHR during <strong>EHR Launch Sequence</strong> using tokens and parameters for <a href="http://hl7.org/fhir/us/core/index.html">US Core profiles</a> as a client.</p>
 
 <p>In order to store collected PRO data in the EHR, The External PRO Administration System <strong>SHALL</strong> use create interaction for the  SDC QuestionnnaireResponse profile with the EHR as the target system. (In other words the External App will do a POST to the EHR FHIR endpoint to store the QuestionnaireResponse data).</p>
-
-<h3 id="conformance-requirements-for-actors-supporting-adaptive-questionnaires-cat-or-irt-based-questionnaires-administration">Conformance Requirements for Actors supporting Adaptive Questionnaires (CAT or IRT based questionnaires) Administration</h3>
-
-<p>This section outlines conformance requirements for actors supporting the Adaptive Questionnaire administration.</p>
-
-<h4 id="patient-facing-administration-app-conformance-requirements">Patient Facing Administration App Conformance Requirements</h4>
-
-<p>The following are the conformance requirements for the Patient Facing Administration App.</p>
-
-<h5 id="behavior-and-formats-3">Behavior and Formats</h5>
-
-<p>The Patient Facing Administration App <strong>SHALL</strong>:</p>
-<ul>
-  <li>Implement the RESTful behavior according to the <a href="http://hl7.org/fhir/http.html">FHIR HTTP Specification</a>.</li>
-  <li>Support <strong>json</strong> resource formats for all PRO interactions.</li>
-  <li>Declare a CapabilityStatement identifying the list of profiles, operations and search parameters supported.</li>
-</ul>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The FHIR HTTP specification outlines specific requirements on how to deal with successful operations, invalid parameters, unauthorized request, insufficient scopes, unknown resources etc.</p>
-
-<hr/>
-<h5 id="profiles-and-interactions-3">Profiles and Interactions</h5>
-
-<p>The Patient Facing Administration App needs to implement the profile specific interactions as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table is as follows</p>
-
-<p>The Patient Facing Administration App <strong>SHALL</strong> support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile/Resource Name</th>
-      <th style="text-align: right">create</th>
-      <th style="text-align: right">read</th>
-      <th style="text-align: right">search (type level)</th>
-      <th style="text-align: right">vread</th>
-      <th style="text-align: right">history (instance level)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire-adapt.html">SDC Adaptive Questionnaire</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse-adapt.html">SDC Adaptive QuestionnaireResponse</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire - Note1</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHOULD</td>
-      <td style="text-align: right">SHOULD</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html">SDC QuestionnaireResponse - Note1</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHOULD</td>
-      <td style="text-align: right">SHOULD</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a name="0c6a5ee2-46cd-4dd6-9a91-0774cc093a86">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results / Observation - Note2</a></td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/servicerequest.html">ServiceRequest - Note2</a></td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr/>
-<p><strong>Note1</strong> 
-The Patient Facing Administration App will use the SDC Adaptive Questionnaire and SDC Adaptive QuestionnaireResponse profile to administer the PRO, but should store the resulting Questionnaire and QuestionnaireResponse from the PRO administration using the same profiles that are used for Basic Questionnaires to ensure consistency.</p>
-
-<p><strong>Note2</strong>
-US Core Results Observation profile is optional and only needs to be supported if the answers to the questions in the QuestionnaireResponse are translated to Observations.</p>
-
-<p><strong>Note3</strong>
-Some sites are planning to use ServiceRequest to capture the ordering of a PROM instrument to a specific patient.</p>
-
-<p><strong>Feedback Required</strong>
-We are requesting feedback from pilot sites and challenge participants on whether the use of US CoreResults and/or ServiceRequest should be mandated or left optional.</p>
-
-<hr/>
-
-<h5 id="adaptive-questionnaire-operations">Adaptive Questionnaire Operations</h5>
-
-<p>The Patient Facing Administration App <strong>SHALL</strong> support the <a href="http://build.fhir.org/ig/HL7/sdc/Questionnaire-next-question.html">Adaptive Questionnaire Next Question</a> operation to facilitate Adaptive Questionnaire administration process using IRT based algorithms.</p>
-
-<h5 id="search-and-other-parameters-3">Search and Other Parameters</h5>
-
-<p>The Patient Facing Administration App needs to implement the search parameters as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table (for example the first row) is as follows</p>
-
-<p>The Patient Facing Administration App <strong>SHALL</strong> support _id, identifier, combination of identifier &amp; version search parameters and _summary search result parameters for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile Name</th>
-      <th style="text-align: right">SEARCH and Search Result parameters and combinations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire</a></td>
-      <td style="text-align: right">_id (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier &amp; version (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">_summary (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html">SDC QuestionnaireResponse</a></td>
-      <td style="text-align: right">_id (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">patient (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">questionnaire (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">author (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">authored (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a name="10c4871d-3b57-4a73-b9bb-6d886d41a8db">​</a><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-observationresults.html">US Core Results - Observation</a></td>
-      <td style="text-align: right">patient (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">patient &amp; category (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">patient &amp; category &amp; date (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">patient &amp; relatedTarget referring to QuestionnaireResponse (SHOULD)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/servicerequest.html">ServiceRequest</a></td>
-      <td style="text-align: right">patient (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">patient &amp; intent (SHOULD)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h5 id="security-requirements-3">Security Requirements</h5>
-
-<p>The Patient Facing Administration App System <strong>SHALL</strong> support the Communication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
-
-<p>The Patient Facing Administration App <strong>SHALL</strong> support the Authentication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#authentication">FHIR Security Specification</a></p>
-
-<p>The Patient Facing Administration App <strong>SHOULD</strong> support other security recommendations outlined in FHIR Security as appropriate.</p>
-
-<p>The Patient Facing Administration App <strong>MAY</strong> have to comply with other security requirements to interact with the External Assessment Center.</p>
-
-<h4 id="external-assessment-center-conformance-requirements">External Assessment Center Conformance Requirements</h4>
-
-<p>The following are the conformance requirements for the External Assessment Center to interact using the PRO IG.</p>
-
-<h5 id="behavior-and-formats-4">Behavior and Formats</h5>
-
-<p>The External Assessment Center <strong>SHALL</strong>:</p>
-<ul>
-  <li>Implement the RESTful behavior according to the <a href="http://hl7.org/fhir/http.html">FHIR HTTP Specification</a>.</li>
-  <li>Support <strong>json</strong> resource formats for all PRO interactions.</li>
-  <li>Declare a CapabilityStatement identifying the list of profiles, operations and search parameters supported.</li>
-</ul>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The FHIR HTTP specification outlines specific requirements on how to deal with successful operations, invalid parameters, unauthorized request, insufficient scopes, unknown resources etc.</p>
-
-<hr/>
-<h5 id="profiles-and-interactions-4">Profiles and Interactions</h5>
-
-<p>The External Assessment Center needs to implement the profile specific interactions as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table is as follows</p>
-
-<p>The External Assessment Center <strong>SHALL</strong> support the CREATE and READ operations, SHOULD support the SEARCH operations and MAY support vREAD and HISTORY operations for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile/Resource Name</th>
-      <th style="text-align: right">create</th>
-      <th style="text-align: right">read</th>
-      <th style="text-align: right">search (type level)</th>
-      <th style="text-align: right">vread</th>
-      <th style="text-align: right">history (instance level)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire-adapt.html">SDC Adaptive Questionnaire</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse-adapt.html">SDC Adaptive QuestionnaireResponse</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire - Note1</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHOULD</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html">SDC QuestionnaireResponse - Note1</a></td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">SHALL</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-      <td style="text-align: right">MAY</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr/>
-<p><strong>Note1</strong> 
-The External Assessment Center will use the SDC Adaptive Questionnaire and SDC Adaptive QuestionnaireResponse profile to administer the PRO, but should provide the resulting Questionnaire and QuestionnaireResponse from the PRO administration using the same profiles that are used for Basic Questionnaires to ensure consistency.</p>
-
-<hr/>
-
-<h5 id="adaptive-questionnaire-operations-1">Adaptive Questionnaire Operations</h5>
-
-<p>The External Assessment Center <strong>SHALL</strong> support the <a href="http://build.fhir.org/ig/HL7/sdc/Questionnaire-next-question.html">Adaptive Questionnaire Next Question</a> operation to facilitate Adaptive Questionnaire administration process using IRT based algorithms.</p>
-
-<h5 id="search-and-other-parameters-4">Search and Other Parameters</h5>
-
-<p>The External Assessment Center needs to implement the search parameters as specified below.</p>
-
-<hr/>
-<p><strong>Implementation Note</strong>
-The way to read the table (for example the first row) is as follows</p>
-
-<p>The External Assessment Center App <strong>SHALL</strong> support _id, identifier, combination of identifier &amp; version search parameters and _summary search result parameters for the SDC Questionnaire profile.</p>
-
-<hr/>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Profile Name</th>
-      <th style="text-align: right">SEARCH and Search Result parameters and combinations</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaire.html">SDC Questionnaire</a></td>
-      <td style="text-align: right">_id (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">identifier &amp; version (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">&nbsp;</td>
-      <td style="text-align: right">_summary (SHALL)</td>
-    </tr>
-    <tr>
-      <td style="text-align: left"><a href="http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html">SDC QuestionnaireResponse</a></td>
-      <td style="text-align: right">_id (SHALL)</td>
-    </tr>
-  </tbody>
-</table>
-
-<h5 id="security-requirements-4">Security Requirements</h5>
-
-<p>The External Assessment Center System <strong>SHALL</strong> support the Communication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
-
-<p>The External Assessment Center <strong>SHALL</strong> support the Authentication security mechanisms outlined in <a href="http://hl7.org/fhir/security.html#authentication">FHIR Security Specification</a></p>
-
-<p>The External Assessment Center <strong>SHOULD</strong> support other security recommendations outlined in FHIR Security as appropriate.</p>
-
-<p>The External Assessment Center <strong>MAY</strong> outline other security requirements to interact with the Patient Facing Administration App.</p>
-
-<hr/>
-<p><strong>Feedback Required</strong>
-We require implementers of the PRO IG using an External Assessment Center to provide feedback on whether we should adapt the SMART on FHIR Backend Services specification for the interaction between the Patient Facing Administration App and the External Assessment Center or leave it open as it is currently.</p>
-
-<hr/>
 
 <p><br/></p>
 
@@ -1154,13 +654,13 @@ We require implementers of the PRO IG using an External Assessment Center to pro
    <div class="inner-wrapper">
     <p>
 
-               IG &copy;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"></a>HL7 International - FHIR Infrastructure Work Group.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Mon, Jan 13, 2020 15:39+1100">2020-01-13</span>
+               IG &copy;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"></a>HL7 International - FHIR Infrastructure Work Group.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Tue, Jan 14, 2020 07:09+1100">2020-01-14</span>
        <br/>
        <span style="color: #FFFF77">
 
   <!-- PatientReportedOutcomes21CFR11 
            Version: 0.0.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Mon, Jan 13, 2020 15:39+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Tue, Jan 14, 2020 07:09+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
