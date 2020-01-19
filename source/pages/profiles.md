@@ -1,5 +1,5 @@
 ---
-title: Profiles defined as part of the 21 CFR 11 PRO Impplementation Guide
+title: Profiles defined as part of the 21 CFR 11 PRO Implementation Guide
 layout: default
 active: profiles
 ---
