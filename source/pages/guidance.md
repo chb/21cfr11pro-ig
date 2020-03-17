@@ -111,6 +111,12 @@ The server should provide operators or auditors with a mechanism that compares t
 
 
 
+### Automating Identity Certificates
+
+This section describes the use of a subset of [ACME protocol](https://tools.ietf.org/html/rfc8555)
+operations to implement a server API for creating Client Identity Certificates that can be used to 
+provide digitally-signed provenance for client-contributed PRO data and related resources.
+
 
 
 

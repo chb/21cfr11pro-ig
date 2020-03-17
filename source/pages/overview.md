@@ -198,7 +198,37 @@ The ID certificate should be:
   * Able to expire and be reissued
   * Provide Detached Signatures for Resources in Provenance Resources
 
-The ID certificate should also be made available to any system or person who needs to verify the authenticity of signed resources.
+The ID certificate should also be made available to any system or person who needs to verify the authenticity of signed resources. The recommendation of this implementation Guide is for each client 
+to POST any new identity certificate to the server embedded in a DocumentReference resource and provide a 
+Provenance resource for that DocumentRefence with a reference to the client’s associated Patient resource as a context/sourcePatientInfo reference or Device resource context/related reference (depending on whether the client is a patient client or a gateway application for an EDC). The client adds a signature for the DocumentRefence in the accompanying Provenance resource.
+
+#### Automated Client Identity Certificate 
+
+To provide a flexible and standards-based mechanism for supporting identity certificates the [ACME](https://tools.ietf.org/html/rfc8555) protocol is recommended.
+
+[ACME](https://tools.ietf.org/html/rfc8555) is a protocol designed largely for automating the signing of certificates for use to secure hosts in Internet domains and individual web hosts. There is no direct means in the standard to automate the signing request and proof provision required to issue an identity certificate, but the intent to be a general and extensible protocol is mentioned:
+
+    Note that while ACME is defined with enough flexibility to handle different types of identifiers in principle, the primary use case addressed by this document is the case where domain names are used as identifiers.
+
+The ACME API is a useful framework for a 21 CFR 11 system where FHIR clients need to perform certificate orders, but it has a couple of assumptions that can cause complexity:
+
+  1.  ACME assumes it will operate as a standalone server with its own registration and authentication mechanism that is OAuth-like in that each client request must provide a nonce. This parallels and duplicates functionality an OIDC or OAuth 2.0 implementation could provide.
+  2.  The standard flow for ordering a certificate includes a requirement for a client to poll until a set of validation criteria is met, but these indeterminate duration tests can be omitted from the protocol for identity.
+
+As a 21 CFR 11-compliant FHIR server adhering to the PRO Implementation Guide already has an OIDC
+or OAuth 2.0 authentication and authorization interface, the account and authorization processes 
+should be ignored and the OIDC or OAuth 2.0 equivalents used. 
+
+An authorized client should be able 
+to order an identity certificate and use the authorization token and claim and the challenge/proof 
+step is unnecessary as the client ID is already known because of the authorization process. In this 
+regard no challenge need be issued, or the challenge portion of the protocol can be ignored) and the 
+order object can transition directly to the valid state. The ACME REST methods newOrder, revokeCert 
+and keyChange are all available to an authorized client.
+
+{% include img.html img="ACME-FHIR-FLOW.png" caption="ACME Protocol Sequence for authenticating, ordering new identity certificates and storing them to the FHIR server" %}
+
+When a server issues a certificate, the client stores a copy of that certificate with the FHIR server by POSTing it embedded in a DocumentReference  with a reference to the client’s associated Patient resource as a context/sourcePatientInfo reference or Device resource context/related reference (depending on whether the client is a Patient client or a gateway application for an EDC) and an accompanying signature in a Provenance resource.
 
 ### Provenance and Resource Signing
 
@@ -297,6 +327,11 @@ When a signature is provided it is important to note a known corresponding ID ce
 }
 ```
 
+### Identity Certificate DocumentReference
+
+```
+[TBD]
+```
 
 ### Cryptographic Journaling and Auditing
 

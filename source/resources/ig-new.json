@@ -18,7 +18,7 @@
     "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/pages"
   }],
   "url" : "http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig",
-  "version" : "0.0.1",
+  "version" : "0.0.2",
   "name" : "PatientReportedOutcomes21CFR11",
   "title" : "Patient Reported Outcomes 21 CFR Part 11 Extension",
   "status" : "draft",
