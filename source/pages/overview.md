@@ -230,6 +230,8 @@ and keyChange are all available to an authorized client.
 
 When a server issues a certificate, the client stores a copy of that certificate with the FHIR server by POSTing it embedded in a DocumentReference  with a reference to the client’s associated Patient resource as a context/sourcePatientInfo reference or Device resource context/related reference (depending on whether the client is a Patient client or a gateway application for an EDC) and an accompanying signature in a Provenance resource.
 
+The ACME server can either sign identity certificates as a system-wide Certificate Authority, or as a managed Certificate Authority delegated from a higher-level CA with a chain of trust that meets the approval of a regulatory body.
+
 ### Provenance and Resource Signing
 
 Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.

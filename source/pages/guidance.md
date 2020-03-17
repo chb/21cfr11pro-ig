@@ -109,13 +109,17 @@ An example of an off-the-shelf tool that can provide this kind of assurance is A
 
 The server should provide operators or auditors with a mechanism that compares the system state against the journal on request. The integrity checker should report the resources and time that system integrity was compromised.
 
-
-
 ### Automating Identity Certificates
 
 This section describes the use of a subset of [ACME protocol](https://tools.ietf.org/html/rfc8555)
 operations to implement a server API for creating Client Identity Certificates that can be used to 
-provide digitally-signed provenance for client-contributed PRO data and related resources.
+provide digitally-signed provenance for client-contributed PRO data and related resources. Automated creation of identity certificates provides an automatic persistent method of assessing provenance 
+based on digital cryptography and leveraging the security of the study enrolment process that provides 
+strongly-identified patients with access to provide PROs.
+
+**Precondition:** Implement an OAuth 2.0 
+
+**Step 1:**
 
 
 
