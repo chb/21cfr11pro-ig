@@ -337,8 +337,8 @@ When a signature is provided it is important to note a known corresponding ID ce
 
 ### Cryptographic Journaling and Auditing
 
-
 To audit every resource of interest the following process needs to be supported:
+
   1. The resource is retrieved
   2. The corresponding Provenance entry is retrieved
   3. The certificate referenced in the Provenance entry is retrieved

@@ -117,10 +117,17 @@ provide digitally-signed provenance for client-contributed PRO data and related 
 based on digital cryptography and leveraging the security of the study enrolment process that provides 
 strongly-identified patients with access to provide PROs.
 
-**Precondition:** Implement an OAuth 2.0 
+**Precondition:** Implement an OAuth 2.0 Authentication/Authorization Scheme per [FHIR Security Specification](http://hl7.org/fhir/security.html#http)
 
-**Step 1:**
+**Step 1:** Implement the newOrder, revokeCert and keyChange ACME services.
 
+See the [RFC](https://tools.ietf.org/html/rfc8555) for protocol details.
+
+_Do not_ require a challenge to prove identity before accepting a signing request if the client has a valid authentication session.
+
+**Step 2:** Restrict certificate order/signing requests to the client's identity
+
+Restrict the client to sign only a client's own identity certificate signing request. This would restrict certificates to client identity passed from OAuth 2.0 or OIDC.
 
 
 
