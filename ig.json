@@ -58,7 +58,7 @@
   "extraTemplates" : [
     "mappings"
   ],
-  "fixed-business-version" : "0.0.1",
+  "fixed-business-version" : "0.0.2",
   "gen-examples" : "false",
   "html-template" : "html-template.html",
   "license" : "CC0-1.0",
