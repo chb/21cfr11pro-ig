@@ -238,9 +238,11 @@ Signing resources provides a mechanism to validate that a resource was genuinely
 
 A Provenance resource contains a pointer to the FHIR system's concept of who made a change to a resource, what version of the FHIR server's resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
 For 21 CFR Part 11 compliance, a Provenance resource should provide:
+
   * A link to the server instance of the resource the signature is for
   * A signature
   * The identity or fingerprint of the currently-issued ID certificate that corresponds to the secret key used to sign the resource.
+
 When a signature is provided it is important to note a known corresponding ID certificate. Because ID certificates can be reissued, and a single FHIR client could have multiple valid identity certificates published at once.
 
 ```

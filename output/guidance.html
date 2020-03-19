@@ -266,7 +266,7 @@ This is the
 
 <p>Developers can follow these steps to implement a FHIR client that creates Provenance records with resource signatures.</p>
 
-<p><strong>Step 1:</strong> Support the FHIR API for POSTing <code class="highlighter-rouge">QuestionnaireResponse</code>s and <code class="highlighter-rouge">Provenance</code> resources.</p>
+<p><strong>Step 1:</strong> Support the FHIR API for POSTing <code class="highlighter-rouge">DocumentReference</code>, <code class="highlighter-rouge">QuestionnaireResponse</code> and <code class="highlighter-rouge">Provenance</code> resources.</p>
 
 <p>The only formats is JSON to support signing of the canonical form. XML guidance may be forthcoming.</p>
 
@@ -274,13 +274,15 @@ This is the
 
 <p><code class="highlighter-rouge">POST [BaseURL]/Provenance/</code></p>
 
+<p><code class="highlighter-rouge">POST [BaseURL]/DocumentReference/</code></p>
+
 <p><strong>Step 2:</strong> Support private keys, identity certificates and digital signing</p>
 
 <p>The FHIR client should generate or have access to a key pair. The secret key is required for signing, and the corresponding identity certificate is certified by a reputable certifying authority</p>
 
 <p><strong>Step 3:</strong> Send resources with the HTTP <code class="highlighter-rouge">Prefer: return=representation</code> header set</p>
 
-<p>The <code class="highlighter-rouge">Prefer</code> header requests a full copy of the changed resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a <code class="highlighter-rouge">Provenance</code> resource.</p>
+<p>The <code class="highlighter-rouge">Prefer</code> header requests a full copy of the server-updated resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a <code class="highlighter-rouge">Provenance</code> resource. The canonical version of the returned with the server metadata excluded can be used for ensuring the server’s version of the resource is the same as the client’s version, and an external signature generated for the resource that can be included in the <code class="highlighter-rouge">Provenance</code>.</p>
 
 <p><strong>Step 4:</strong> Implement an user or operator alert for system integrity failures</p>
 
@@ -348,7 +350,45 @@ This is the
 
 <p>This section describes the use of a subset of <a href="https://tools.ietf.org/html/rfc8555">ACME protocol</a>
 operations to implement a server API for creating Client Identity Certificates that can be used to 
-provide digitally-signed provenance for client-contributed PRO data and related resources.</p>
+provide digitally-signed provenance for client-contributed PRO data and related resources. Automated creation of identity certificates provides an automatic persistent method of assessing provenance 
+based on digital cryptography and leveraging the security of the study enrolment process that provides 
+strongly-identified patients with access to provide PROs.</p>
+
+<p><strong>Precondition:</strong> Implement an OAuth 2.0 Authentication/Authorization Scheme per <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
+
+<p><strong>Step 1:</strong> Implement the newOrder, revokeCert and keyChange ACME services</p>
+
+<p>Add support for these services on the FHIR server. See the <a href="https://tools.ietf.org/html/rfc8555">RFC</a> for protocol details.</p>
+
+<p><em>Do not</em> require a challenge to prove identity before accepting a signing request if the client has a valid OAuth 2.0 or OpenID Connect session that demonstrates system authentication and authorization.</p>
+
+<p><strong>Step 2:</strong> Restrict certificate order/signing requests to the client’s identity</p>
+
+<p>Restrict the client to sign only a client’s own identity certificate signing request. This would restrict certificates to client identity passed from OAuth 2.0 or OIDC.</p>
+
+<p><strong>Step 3:</strong> Build a FHIR client that orders identity certificates as required</p>
+
+<p>The FHIR client should order new certificates when:</p>
+
+<ol>
+  <li>The FHIR client (or device) does not have an existing identity certificate</li>
+  <li>The client’s existing identity certificate has expired</li>
+  <li>The client’s identity certificate status is revoked or the client’s secret key is changed</li>
+</ol>
+
+<p><strong>Step 4:</strong> Restrict access to the server’s revokeCert  method to the owning client and administrators</p>
+
+<p>Clients should permitted only to revoke their own certificates. Administrators can revoke any certificates.</p>
+
+<p><strong>Step 5:</strong> Journal all certificate operations</p>
+
+<p>It is particularly important to record a timestamp of when certificates were revoked for system audit.</p>
+
+<p><strong>Step 6:</strong> Implement a client that POSTs new identity certificates to the server.</p>
+
+<p><code class="highlighter-rouge">POST [BaseURL]/DocumentReference/</code></p>
+
+<p>Certificates are already signed by the server, so generating a <code class="highlighter-rouge">Provenance</code> resource to accompany the <code class="highlighter-rouge">DocumentReference</code> resource is optional, but provides a consistent auditing approach for all client-POSTed data.</p>
 
 
 
@@ -381,14 +421,14 @@ provide digitally-signed provenance for client-contributed PRO data and related 
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Tue, Mar 17, 2020 16:03+1100">2020-03-17</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Mar 19, 2020 11:39+1100">2020-03-19</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.2
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Tue, Mar 17, 2020 16:03+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Mar 19, 2020 11:39+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

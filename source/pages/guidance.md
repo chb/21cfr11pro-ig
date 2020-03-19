@@ -47,7 +47,7 @@ The section outlines the implementation guidance for the various actors involved
 
 Developers can follow these steps to implement a FHIR client that creates Provenance records with resource signatures.
 
-**Step 1:** Support the FHIR API for POSTing `QuestionnaireResponse`s and `Provenance` resources.
+**Step 1:** Support the FHIR API for POSTing `DocumentReference`, `QuestionnaireResponse` and `Provenance` resources.
 
 The only formats is JSON to support signing of the canonical form. XML guidance may be forthcoming.
 
@@ -55,6 +55,7 @@ The only formats is JSON to support signing of the canonical form. XML guidance 
 
 `POST [BaseURL]/Provenance/`
 
+`POST [BaseURL]/DocumentReference/`
 
 **Step 2:** Support private keys, identity certificates and digital signing
 
@@ -62,7 +63,7 @@ The FHIR client should generate or have access to a key pair. The secret key is 
 
 **Step 3:** Send resources with the HTTP `Prefer: return=representation` header set
 
-The `Prefer` header requests a full copy of the changed resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a `Provenance` resource.
+The `Prefer` header requests a full copy of the server-updated resource in the HTTP response. This is essential for creating an externalised signature for inclusion in a `Provenance` resource. The canonical version of the returned with the server metadata excluded can be used for ensuring the server's version of the resource is the same as the client's version, and an external signature generated for the resource that can be included in the `Provenance`.
 
 **Step 4:** Implement an user or operator alert for system integrity failures
 
@@ -119,15 +120,40 @@ strongly-identified patients with access to provide PROs.
 
 **Precondition:** Implement an OAuth 2.0 Authentication/Authorization Scheme per [FHIR Security Specification](http://hl7.org/fhir/security.html#http)
 
-**Step 1:** Implement the newOrder, revokeCert and keyChange ACME services.
+**Step 1:** Implement the newOrder, revokeCert and keyChange ACME services
 
-See the [RFC](https://tools.ietf.org/html/rfc8555) for protocol details.
+Add support for these services on the FHIR server. See the [RFC](https://tools.ietf.org/html/rfc8555) for protocol details.
 
-_Do not_ require a challenge to prove identity before accepting a signing request if the client has a valid authentication session.
+_Do not_ require a challenge to prove identity before accepting a signing request if the client has a valid OAuth 2.0 or OpenID Connect session that demonstrates system authentication and authorization.
 
 **Step 2:** Restrict certificate order/signing requests to the client's identity
 
 Restrict the client to sign only a client's own identity certificate signing request. This would restrict certificates to client identity passed from OAuth 2.0 or OIDC.
+
+**Step 3:** Build a FHIR client that orders identity certificates as required
+
+The FHIR client should order new certificates when:
+
+  1. The FHIR client (or device) does not have an existing identity certificate
+  2. The client's existing identity certificate has expired
+  3. The client's identity certificate status is revoked or the client's secret key is changed
+
+**Step 4:** Restrict access to the server's revokeCert  method to the owning client and administrators
+
+Clients should permitted only to revoke their own certificates. Administrators can revoke any certificates.
+
+**Step 5:** Journal all certificate operations
+
+It is particularly important to record a timestamp of when certificates were revoked for system audit.
+
+**Step 6:** Implement a client that POSTs new identity certificates to the server.
+
+`POST [BaseURL]/DocumentReference/`
+
+Certificates are already signed by the server, so generating a `Provenance` resource to accompany the `DocumentReference` resource is optional, but provides a consistent auditing approach for all client-POSTed data.  
+
+
+
 
 
 
