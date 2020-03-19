@@ -44,12 +44,15 @@ The way to read the table (for example the first row) is as follows
 
 The 21 CFR 11-Compliant PRO EDC or Warehousing IT System **SHALL** support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC QuestionnaireResponse profile.
 
+Role based access control should be supported for each operation on each resource.
+
 --- 
 
 | Profile/Resource Name          | create     | read       | search (type level)      | vread          |  history (instance level) |
 |:----------------------|-----------:|-----------:|-------------------------:|---------------:|--------------------------:|
 |[SDC QuestionnaireResponse](http://build.fhir.org/ig/HL7/sdc/sdc-questionnaireresponse.html)|SHALL|SHALL|SHALL|SHOULD|SHOULD|
 |[Provenance](http://hl7.org/fhir/us/core/StructureDefinition-us-core-provenance.html)|SHALL|MAY|MAY|MAY|MAY|
+|[DocumentReference](http://hl7.org/fhir/us/core/StructureDefinition-us-core-documentreference.html)|SHALL|MAY|MAY|MAY|MAY|
 
 
 --- 
@@ -63,6 +66,8 @@ The 21 CFR 11-Compliant PRO EDC or Warehousing IT System needs to implement the 
 The way to read the table (for example the first row) is as follows
 
 The 21 CFR 11-Compliant PRO EDC or Warehousing IT System **SHALL** support _id, identifier, combination of identifier & version search parameters and _summary search result parameters for the SDC Questionnaire profile.
+
+Role based access control should be supported for search on each resource.
 
 --- 
 
@@ -78,6 +83,11 @@ The 21 CFR 11-Compliant PRO EDC or Warehousing IT System **SHALL** support _id, 
 ||patient (SHALL)|
 ||patient & date (SHALL)|
 ||Target referring to QuestionnaireResponse (SHALL)|
+|[DocumentReference](http://hl7.org/fhir/us/core/StructureDefinition-us-core-documentreference.html)|target (SHALL)|
+||patient (SHALL)|
+||patient & date (SHALL)|
+||Target referring to Patient (SHALL)|
+
 
 
 ##### Security Requirements
