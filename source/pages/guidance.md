@@ -110,13 +110,15 @@ An example of an off-the-shelf tool that can provide this kind of assurance is A
 
 The server should provide operators or auditors with a mechanism that compares the system state against the journal on request. The integrity checker should report the resources and time that system integrity was compromised.
 
-### Automating Identity Certificates
+### Automating Identity Certificate Management
 
 This section describes the use of a subset of [ACME protocol](https://tools.ietf.org/html/rfc8555)
 operations to implement a server API for creating Client Identity Certificates that can be used to 
 provide digitally-signed provenance for client-contributed PRO data and related resources. Automated creation of identity certificates provides an automatic persistent method of assessing provenance 
 based on digital cryptography and leveraging the security of the study enrolment process that provides 
 strongly-identified patients with access to provide PROs.
+
+The ACME server can either operate as a local CA, or as a delegate from a Certifying Authority managed PKI
 
 **Precondition:** Implement an OAuth 2.0 Authentication/Authorization Scheme per [FHIR Security Specification](http://hl7.org/fhir/security.html#http)
 
@@ -151,16 +153,6 @@ It is particularly important to record a timestamp of when certificates were rev
 `POST [BaseURL]/DocumentReference/`
 
 Certificates are already signed by the server, so generating a `Provenance` resource to accompany the `DocumentReference` resource is optional, but provides a consistent auditing approach for all client-POSTed data.  
-
-
-See the [RFC](https://tools.ietf.org/html/rfc8555) for protocol details.
-
-_Do not_ require a challenge to prove identity before accepting a signing request if the client has a valid authentication session.
-
-**Step 2:** Restrict certificate order/signing requests to the client's identity
-
-Restrict the client to sign only a client's own identity certificate signing request. This would restrict certificates to client identity passed from OAuth 2.0 or OIDC.
-
 
 
 

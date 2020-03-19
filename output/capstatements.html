@@ -276,6 +276,8 @@ The way to read the table (for example the first row) is as follows</p>
 
 <p>The 21 CFR 11-Compliant PRO EDC or Warehousing IT System <strong>SHALL</strong> support the CREATE, READ, SEARCH operations, SHOULD support the vREAD and HISTORY operations for the SDC QuestionnaireResponse profile.</p>
 
+<p>Role based access control should be supported for each operation on each resource.</p>
+
 <hr />
 
 <table>
@@ -306,6 +308,14 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: right">MAY</td>
       <td style="text-align: right">MAY</td>
     </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-documentreference.html">DocumentReference</a></td>
+      <td style="text-align: right">SHALL</td>
+      <td style="text-align: right">MAY</td>
+      <td style="text-align: right">MAY</td>
+      <td style="text-align: right">MAY</td>
+      <td style="text-align: right">MAY</td>
+    </tr>
   </tbody>
 </table>
 
@@ -320,6 +330,8 @@ The way to read the table (for example the first row) is as follows</p>
 The way to read the table (for example the first row) is as follows</p>
 
 <p>The 21 CFR 11-Compliant PRO EDC or Warehousing IT System <strong>SHALL</strong> support _id, identifier, combination of identifier &amp; version search parameters and _summary search result parameters for the SDC Questionnaire profile.</p>
+
+<p>Role based access control should be supported for search on each resource.</p>
 
 <hr />
 
@@ -371,6 +383,22 @@ The way to read the table (for example the first row) is as follows</p>
       <td style="text-align: left"> </td>
       <td style="text-align: right">Target referring to QuestionnaireResponse (SHALL)</td>
     </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://hl7.org/fhir/us/core/StructureDefinition-us-core-documentreference.html">DocumentReference</a></td>
+      <td style="text-align: right">target (SHALL)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">patient (SHALL)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">patient &amp; date (SHALL)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"> </td>
+      <td style="text-align: right">Target referring to Patient (SHALL)</td>
+    </tr>
   </tbody>
 </table>
 
@@ -414,14 +442,14 @@ The way to read the table (for example the first row) is as follows</p>
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Mar 19, 2020 11:39+1100">2020-03-19</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Mar 19, 2020 14:30+1100">2020-03-19</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.2
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Mar 19, 2020 11:39+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Mar 19, 2020 14:30+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

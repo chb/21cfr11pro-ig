@@ -231,7 +231,7 @@ This is the
   <li><a href="#build-a-mechanism-for-managing-client-keys-and-certificates" id="markdown-toc-build-a-mechanism-for-managing-client-keys-and-certificates">Build a mechanism for managing client keys and certificates</a></li>
   <li><a href="#implementation-guidance-for-provenance-with-resource-signatures" id="markdown-toc-implementation-guidance-for-provenance-with-resource-signatures">Implementation Guidance for Provenance with resource signatures</a></li>
   <li><a href="#implementation-guidance-for-tamper-proof-transaction-journal" id="markdown-toc-implementation-guidance-for-tamper-proof-transaction-journal">Implementation Guidance for tamper-proof transaction journal</a></li>
-  <li><a href="#automating-identity-certificates" id="markdown-toc-automating-identity-certificates">Automating Identity Certificates</a></li>
+  <li><a href="#automating-identity-certificate-management" id="markdown-toc-automating-identity-certificate-management">Automating Identity Certificate Management</a></li>
 </ul>
 
 <h3 id="introduction">Introduction</h3>
@@ -346,13 +346,15 @@ This is the
 
 <p>The server should provide operators or auditors with a mechanism that compares the system state against the journal on request. The integrity checker should report the resources and time that system integrity was compromised.</p>
 
-<h3 id="automating-identity-certificates">Automating Identity Certificates</h3>
+<h3 id="automating-identity-certificate-management">Automating Identity Certificate Management</h3>
 
 <p>This section describes the use of a subset of <a href="https://tools.ietf.org/html/rfc8555">ACME protocol</a>
 operations to implement a server API for creating Client Identity Certificates that can be used to 
 provide digitally-signed provenance for client-contributed PRO data and related resources. Automated creation of identity certificates provides an automatic persistent method of assessing provenance 
 based on digital cryptography and leveraging the security of the study enrolment process that provides 
 strongly-identified patients with access to provide PROs.</p>
+
+<p>The ACME server can either operate as a local CA, or as a delegate from a Certifying Authority managed PKI</p>
 
 <p><strong>Precondition:</strong> Implement an OAuth 2.0 Authentication/Authorization Scheme per <a href="http://hl7.org/fhir/security.html#http">FHIR Security Specification</a></p>
 
@@ -421,14 +423,14 @@ strongly-identified patients with access to provide PROs.</p>
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Mar 19, 2020 11:39+1100">2020-03-19</span>
+               IG &#169;  <a style="color: #81BEF7" href="http://hl7.org/Special/committees/fiwg"/>HL7 International - FHIR Infrastructure Work Group</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.0.2 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Thu, Mar 19, 2020 14:30+1100">2020-03-19</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.0.2
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Mar 19, 2020 11:39+1100. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Thu, Mar 19, 2020 14:30+1100. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
