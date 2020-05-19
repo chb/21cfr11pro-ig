@@ -1,14 +1,14 @@
 {
  "package-id" : "hl7.fhir.us.patient-reported-outcomes",
  "title" : "Patient Reported Outcomes FHIR IG", 
- "canonical" : "http://hl7.org/fhir/us/patient-reported-outcomes", 
- "introduction" : "The PRO FHIR IG provides guidance on how to use FHIR resources to capture patient reporteddata that can be used to improve healthcare services and provide data for research.",
+ "canonical" : "https://www.f7t.co/21cfr11pro-ig/index.html", 
+ "introduction" : "The PRO FHIR 21CFR11 IG builds on the PRO FHIR IG to capture patient reported data within the constraints of US 21 CFR Part 11.",
  "list" : [{
   "version" : "current",
   "date" : "2020-05-19",
   "desc" : "Draft Build (latest in version control)",
   "path" : "https://www.f7t.co/21cfr11pro-ig/index.html",
-  "status" : "ci-build",
+  "status" : "ci",
   "current" : true,
   "sequence" : "Release 4"
  },{

@@ -69,7 +69,7 @@
   "no-inactive-codes" : "false",
   "npm-name" : "hl7.fhir.us.patient-reported-outcomes-21cfr11",
   "paths" : {
-    "output" : "output",
+    "output" : "docs",
     "pages" : [
       "framework",
       "source/pages"

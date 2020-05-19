@@ -7,12 +7,12 @@
   <name value="PatientReportedOutcomes21CFR11"/>
   <title value="Patient Reported Outcomes 21 CFR Part 11 Extension"/>
   <status value="draft"/>
-  <publisher value="HL7 International - FHIR Infrastructure Work Group"/>
-  <copyright value="Used by permission of HL7, all rights reserved Creative Commons License"/>
+  <publisher value="Boston Children's Hospital - Computational Health Informatics Program (CHIP)"/>
+  <copyright value="Used by permission of BCH-CHIP, all rights reserved Creative Commons License"/>
    <contact>
     <telecom>
       <system value="other"/>
-      <value value="http://hl7.org/Special/committees/fiwg"/>
+      <value value="https://www.childrenshospital.org/chip"/>
     </telecom>
   </contact>
   <!-- 0..1 Use and/or publishing restrictions -->

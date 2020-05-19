@@ -204,7 +204,7 @@ Provenance resource for that DocumentRefence with a reference to the client’s 
 
 #### Automated Client Identity Certificate 
 
-To provide a flexible and standards-based mechanism for signing identity certificates an OAuth2-protected certificate-signing REST service (see [Guidance](guidance.html)), or an adaptation of the [ACME](https://tools.ietf.org/html/rfc8555) protocol is recommended.
+To provide a flexible and standards-based mechanism for signing identity certificates a simple OAuth2-protected certificate-signing REST service (see [Guidance](guidance.html)), or an adaptation of the [ACME](https://tools.ietf.org/html/rfc8555) protocol is recommended.
 
 [ACME](https://tools.ietf.org/html/rfc8555) is a protocol designed largely for automating the signing of certificates for use to secure hosts in Internet domains and individual web hosts. There is no direct means in the standard to automate the signing request and proof provision required to issue an identity certificate, but the intent to be a general and extensible protocol is mentioned:
 

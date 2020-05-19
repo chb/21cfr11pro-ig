@@ -112,6 +112,40 @@ The server should provide operators or auditors with a mechanism that compares t
 
 ### Automating Identity Certificate Management
 
+The easiest way to provide clients with signed identity certificates is to implement a web service 
+that leverages the existing OAuth authentication and system authorization to prove identity. A `/sign` 
+web service endpoint that is OAuth authenticated that accepts certiciate signing requests (CSRs). This service should only sign certificate signing requests matching the OAuth-authenticated principal.
+
+An example signing service endpoint:
+
+`/sign` endpoint bearer token authenticated:
+
+
+Request payload:
+
+```
+{
+  "csrB64": "Base64 encoded signing request for a certificate"
+}
+```
+
+The signing service verifies that the `CN=` in the signing request identifies the authenticated
+principal, then signs the request with a certifying authority (CA) certificate.
+
+Response payload:
+
+```
+{
+  "signedB64": "Base64 encoded signed identity certificate"
+}
+```
+
+The FHIR client would then POST this new certificate to the OAuth-authenticated FHIR server. 
+
+The implementation of this signing service is not constrained by this implementation guide, but should be sufficient to verify that FHIR resources were signed by a certificate that the system certified during audit.
+
+#### Optional use of ACME as a signing service
+
 This section describes the use of a subset of [ACME protocol](https://tools.ietf.org/html/rfc8555)
 operations to implement a server API for creating Client Identity Certificates that can be used to 
 provide digitally-signed provenance for client-contributed PRO data and related resources. Automated creation of identity certificates provides an automatic persistent method of assessing provenance 
