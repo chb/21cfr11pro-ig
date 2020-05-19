@@ -3,14 +3,14 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir">
   <id value="hl7.fhir.us.patient-reported-outcomes-21cfr11"/>
   <text>
-    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11</pre></div>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11</pre></div>
   </text>
-  <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11"/>
+  <url value="https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11"/>
   <version value="0.2.1"/>
   <name value="PatientReportedOutcomes21CFR11"/>
   <title value="Patient Reported Outcomes 21 CFR Part 11 Extension"/>
   <status value="draft"/>
-  <date value="2020-05-20T09:24:44+10:00"/>
+  <date value="2020-05-20T09:30:40+10:00"/>
   <publisher value="Boston Children&#39;s Hospital - Computational Health Informatics Program (CHIP)"/>
   <contact>
     <telecom>

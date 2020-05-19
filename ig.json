@@ -1,7 +1,7 @@
 {
   "allviews" : "true",
   "broken-links" : "warning",
-  "canonicalBase" : "http://hl7.org/fhir/us/patient-reported-outcomes",
+  "canonicalBase" : "https://chb.github.io/21cfr11pro-ig/",
   "defaults" : {
     "Any" : {
       "template-base" : "base.html",

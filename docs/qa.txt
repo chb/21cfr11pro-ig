@@ -1,13 +1,13 @@
 ﻿PatientReportedOutcomes21CFR11 : Validation Results
 =========================================
 
-err = 0, warn = 0, info = 0
+err = 2, warn = 0, info = 0
 IG Publisher Version: v1.0.34-SNAPSHOT Out of date - current version is v1.0.94-SNAPSHOT
-Generated Wed May 20 09:24:54 AEST 2020. FHIR version 4.0.1 for hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 (canonical = http://hl7.org/fhir/us/patient-reported-outcomes)
+Generated Wed May 20 09:30:50 AEST 2020. FHIR version 4.0.1 for hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 (canonical = https://chb.github.io/21cfr11pro-ig/)
 
  Build Errors : 18 / 0
  /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/capabilitystatement-server : 0 / 0
- /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/ig : 0 / 0
+ /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/ig : 1 / 0
 </table>
 == n/a ==
 ERROR: /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/docs/CapabilityStatement-server.html: The html source does not contain the publish box <!--ReleaseHeader--><p id="publish-box">Publish Box goes here</p><!--EndReleaseHeader--> (see note at http://wiki.hl7.org/index.php?title=FHIR_Implementation_Guide_Publishing_Requirements#HL7_HTML_Standards_considerations)
@@ -30,3 +30,4 @@ ERROR: /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11
 ERROR: /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/docs/todo.html: The html source does not contain the publish box
 == /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/capabilitystatement-server.xml ==
 == /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/ig.xml ==
+ERROR: https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11: Conformance resource /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/ig.xml - the canonical URL (https://chb.github.io/21cfr11pro-ig/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11) does not match the URL (https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11)

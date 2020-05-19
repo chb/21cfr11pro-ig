@@ -5,19 +5,19 @@
 
 # - resource -------------------------------------------------------------------
 
-<http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11> a fhir:ImplementationGuide;
+<https://chb.github.io/21cfr11pro-ig/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11> a fhir:ImplementationGuide;
   fhir:nodeRole fhir:treeRoot;
   fhir:Resource.id [ fhir:value "hl7.fhir.us.patient-reported-outcomes-21cfr11"];
   fhir:DomainResource.text [
      fhir:Narrative.status [ fhir:value "generated" ];
-     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11</pre></div>"
+     fhir:Narrative.div "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11</pre></div>"
   ];
-  fhir:ImplementationGuide.url [ fhir:value "http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11"];
+  fhir:ImplementationGuide.url [ fhir:value "https://chb.github.io/21cfr11pro-ig//ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11"];
   fhir:ImplementationGuide.version [ fhir:value "0.2.1"];
   fhir:ImplementationGuide.name [ fhir:value "PatientReportedOutcomes21CFR11"];
   fhir:ImplementationGuide.title [ fhir:value "Patient Reported Outcomes 21 CFR Part 11 Extension"];
   fhir:ImplementationGuide.status [ fhir:value "draft"];
-  fhir:ImplementationGuide.date [ fhir:value "2020-05-20T09:24:44+10:00"^^xsd:dateTime];
+  fhir:ImplementationGuide.date [ fhir:value "2020-05-20T09:30:40+10:00"^^xsd:dateTime];
   fhir:ImplementationGuide.publisher [ fhir:value "Boston Children's Hospital - Computational Health Informatics Program (CHIP)"];
   fhir:ImplementationGuide.contact [
      fhir:index 0;
@@ -64,7 +64,7 @@
          fhir:Extension.valueUri [ fhir:value "CapabilityStatement-server.html" ]
        ];
        fhir:ImplementationGuide.definition.resource.reference [
-         fhir:link <http://hl7.org/fhir/us/patient-reported-outcomes/CapabilityStatement/server>;
+         fhir:link <https://chb.github.io/21cfr11pro-ig/CapabilityStatement/server>;
          fhir:Reference.reference [ fhir:value "CapabilityStatement/server" ]
        ];
        fhir:ImplementationGuide.definition.resource.exampleBoolean [ fhir:value "false"^^xsd:boolean ]
@@ -76,13 +76,10 @@
      ]
   ] .
 
-<http://hl7.org/fhir/us/patient-reported-outcomes/CapabilityStatement/server> a fhir:us .
-
 # - ontology header ------------------------------------------------------------
 
-<http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11.ttl> a owl:Ontology;
-  owl:imports fhir:fhir.ttl;
-  owl:versionIRI <http://build.fhir.org/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11.ttl> .
+<https://chb.github.io/21cfr11pro-ig/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11.ttl> a owl:Ontology;
+  owl:imports fhir:fhir.ttl .
 
 # -------------------------------------------------------------------------------------
 

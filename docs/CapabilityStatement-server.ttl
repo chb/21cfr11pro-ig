@@ -5,7 +5,7 @@
 
 # - resource -------------------------------------------------------------------
 
-<http://hl7.org/fhir/us/patient-reported-outcomes/CapabilityStatement/server> a fhir:CapabilityStatement;
+<https://chb.github.io/21cfr11pro-ig/CapabilityStatement/server> a fhir:CapabilityStatement;
   fhir:nodeRole fhir:treeRoot;
   fhir:Resource.id [ fhir:value "server"];
   fhir:DomainResource.text [
@@ -80,9 +80,8 @@
 
 # - ontology header ------------------------------------------------------------
 
-<http://hl7.org/fhir/us/patient-reported-outcomes/CapabilityStatement/server.ttl> a owl:Ontology;
-  owl:imports fhir:fhir.ttl;
-  owl:versionIRI <http://build.fhir.org/us/patient-reported-outcomes/CapabilityStatement/server.ttl> .
+<https://chb.github.io/21cfr11pro-ig/CapabilityStatement/server.ttl> a owl:Ontology;
+  owl:imports fhir:fhir.ttl .
 
 # -------------------------------------------------------------------------------------
 
