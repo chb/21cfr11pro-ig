@@ -1,0 +1,68 @@
+{
+  "resourceType": "ImplementationGuide",
+  "id": "hl7.fhir.us.patient-reported-outcomes-21cfr11",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><h2>PatientReportedOutcomes21CFR11</h2><p>The official URL for this implementation guide is: </p><pre>http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11</pre></div>"
+  },
+  "url": "http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/hl7.fhir.us.patient-reported-outcomes-21cfr11",
+  "version": "0.2.1",
+  "name": "PatientReportedOutcomes21CFR11",
+  "title": "Patient Reported Outcomes 21 CFR Part 11 Extension",
+  "status": "draft",
+  "date": "2020-05-20T09:24:44+10:00",
+  "publisher": "Boston Children's Hospital - Computational Health Informatics Program (CHIP)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "other",
+          "value": "https://www.childrenshospital.org/chip"
+        }
+      ]
+    }
+  ],
+  "copyright": "Used by permission of BCH-CHIP, all rights reserved Creative Commons License",
+  "packageId": "hl7.fhir.us.patient-reported-outcomes-21cfr11",
+  "license": "CC0-1.0",
+  "fhirVersion": [
+    "4.0.1"
+  ],
+  "dependsOn": [
+    {
+      "uri": "http://hl7.org/fhir/uv/sdc",
+      "packageId": "hl7.fhir.uv.sdc",
+      "version": "current"
+    },
+    {
+      "uri": "http://hl7.org/fhir/us/core",
+      "packageId": "hl7.fhir.us.core",
+      "version": "current"
+    }
+  ],
+  "definition": {
+    "resource": [
+      {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/tools/StructureDefinition/resource-information",
+            "valueString": "CapabilityStatement"
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/implementationguide-page",
+            "valueUri": "CapabilityStatement-server.html"
+          }
+        ],
+        "reference": {
+          "reference": "CapabilityStatement/server"
+        },
+        "exampleBoolean": false
+      }
+    ],
+    "page": {
+      "nameUrl": "index.md",
+      "title": "PRO 21CFR11 Homepage",
+      "generation": "markdown"
+    }
+  }
+}
