@@ -4,11 +4,13 @@
   2. Install ruby (if it isnt aready) `brew install ruby`
   3. Install jekyll `sudo gem install jekyll` 
 
-Then launch the publisher. Make sure the ig.json has a version that supports this line in ig.json:
+Then launch the publisher. Make sure the ig.json has a version that supports this:
 
 ```
   "version" : "4.0.1"
 ```
+
+The command to launch the publisher:
 
 `java -jar ~/bin/jars/org.hl7.fhir.publisher.jar -ig ig.json`
 

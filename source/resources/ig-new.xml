@@ -3,19 +3,19 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir">
   <id value="ig"/>
   <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource">
-    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/resources"/>
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources"/>
   </extension>
   <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource">
-    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/examples"/>
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/examples"/>
   </extension>
   <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages">
-    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/framework"/>
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/framework"/>
   </extension>
   <extension url="http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages">
-    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/pages"/>
+    <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/pages"/>
   </extension>
   <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig"/>
-  <version value="0.0.2"/>
+  <version value="0.2.1"/>
   <name value="PatientReportedOutcomes21CFR11"/>
   <title value="Patient Reported Outcomes 21 CFR Part 11 Extension"/>
   <status value="draft"/>

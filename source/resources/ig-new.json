@@ -3,22 +3,22 @@
   "id" : "ig",
   "extension" : [{
     "url" : "http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource",
-    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/resources"
+    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources"
   },
   {
     "url" : "http://hl7.org/fhir/StructureDefinition/igpublisher-folder-resource",
-    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/examples"
+    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/examples"
   },
   {
     "url" : "http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages",
-    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/framework"
+    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/framework"
   },
   {
     "url" : "http://hl7.org/fhir/StructureDefinition/igpublisher-folder-pages",
-    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/implementation-guide/patient-reported-outcomes-21cfr11/source/pages"
+    "valueString" : "/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/pages"
   }],
   "url" : "http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig",
-  "version" : "0.0.2",
+  "version" : "0.2.1",
   "name" : "PatientReportedOutcomes21CFR11",
   "title" : "Patient Reported Outcomes 21 CFR Part 11 Extension",
   "status" : "draft",
