@@ -1,6 +1,6 @@
-# patient-reported-outcomes
+# FHIR Support for 21 CFR Part 11-compliant Patient Reported Futcomes
 
-This is the repository for the Patient Reported Outcomes Initiative (PRO) 12 CFR 11 initiative supported by an FDA U24 grant.
+This is the repository for the FHIR 12 CFR 11 Patient Reported Outcomes Initiative (PRO) initiative supported by an FDA U24 grant.
 
 ## Implementation Guide Location
 
