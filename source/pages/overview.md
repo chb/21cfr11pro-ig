@@ -219,14 +219,13 @@ As a 21 CFR 11-compliant FHIR server adhering to the PRO Implementation Guide al
 or OAuth 2.0 authentication and authorization interface, the account and authorization processes 
 should be ignored and the OIDC or OAuth 2.0 equivalents used. 
 
-An authorized client should be able 
-to order an identity certificate and use the authorization token and claim and the challenge/proof 
+An authorized client can order a signature for its self-created identity certificate and use the authorization token and claim and the challenge/proof 
 step is unnecessary as the client ID is already known because of the authorization process. In this 
 regard no challenge need be issued, or the challenge portion of the protocol can be ignored) and the 
 order object can transition directly to the valid state. The ACME REST methods newOrder, revokeCert 
 and keyChange are all available to an authorized client.
 
-{% include img.html img="ACME-FHIR-FLOW.png" caption="ACME Protocol Sequence for authenticating, ordering new identity certificates and storing them to the FHIR server" %}
+{% include img.html img="signing-flow.png" caption=" Sequence for authenticating, signing new identity certificates and storing them to the FHIR server" %}
 
 When a server issues a certificate, the client stores a copy of that certificate with the FHIR server by POSTing it embedded in a DocumentReference  with a reference to the client’s associated Patient resource as a context/sourcePatientInfo reference or Device resource context/related reference (depending on whether the client is a Patient client or a gateway application for an EDC) and an accompanying signature in a Provenance resource.
 
@@ -234,7 +233,7 @@ The ACME server can either sign identity certificates as a system-wide Certifica
 
 ### Provenance and Resource Signing
 
-Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.
+Signed resources provide a mechanism for an auditor or audit process to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.
 
 A Provenance resource contains a pointer to the FHIR system's concept of who made a change to a resource, what version of the FHIR server's resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
 For 21 CFR Part 11 compliance, a Provenance resource should provide:

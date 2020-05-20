@@ -538,8 +538,7 @@ Provenance resource for that DocumentRefence with a reference to the client’s 
 or OAuth 2.0 authentication and authorization interface, the account and authorization processes 
 should be ignored and the OIDC or OAuth 2.0 equivalents used.</p>
 
-<p>An authorized client should be able 
-to order an identity certificate and use the authorization token and claim and the challenge/proof 
+<p>An authorized client can order a signature for its self-created identity certificate and use the authorization token and claim and the challenge/proof 
 step is unnecessary as the client ID is already known because of the authorization process. In this 
 regard no challenge need be issued, or the challenge portion of the protocol can be ignored) and the 
 order object can transition directly to the valid state. The ACME REST methods newOrder, revokeCert 
@@ -547,12 +546,12 @@ and keyChange are all available to an authorized client.</p>
 
 <!-- all this Bootstrap html for getting an narrow image to fit nicely in text - 640 pix wide -->
 
-<!-- file:///assets/images/ACME-FHIR-FLOW.png -->
+<!-- file:///assets/images/signing-flow.png -->
 
 <div>
 <figure class="figure">
-<figcaption class="figure-caption"><strong>ACME Protocol Sequence for authenticating, ordering new identity certificates and storing them to the FHIR server</strong></figcaption>
-  <img src="assets/images/ACME-FHIR-FLOW.png" class="figure-img img-responsive img-rounded center-block" alt="ACME-FHIR-FLOW.png" />
+<figcaption class="figure-caption"><strong> Sequence for authenticating, signing new identity certificates and storing them to the FHIR server</strong></figcaption>
+  <img src="assets/images/signing-flow.png" class="figure-img img-responsive img-rounded center-block" alt="signing-flow.png" />
 </figure>
 
 <p></p>
@@ -564,7 +563,7 @@ and keyChange are all available to an authorized client.</p>
 
 <h3 id="provenance-and-resource-signing">Provenance and Resource Signing</h3>
 
-<p>Signing resources provides a mechanism to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.</p>
+<p>Signed resources provide a mechanism for an auditor or audit process to validate that a resource was genuinely provided by a FHIR client with a known identity and has not been altered since it was signed.</p>
 
 <p>A Provenance resource contains a pointer to the FHIR system’s concept of who made a change to a resource, what version of the FHIR server’s resource was changed, when it was changed, and optionally a signature to verify the resource. (Traditionally the signature is a hash of a DICOM file or PDF document resource)
 For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
@@ -711,14 +710,14 @@ For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, May 20, 2020 09:30+1000">2020-05-20</span>
+               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, May 20, 2020 11:29+1000">2020-05-20</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.2.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, May 20, 2020 09:30+1000. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, May 20, 2020 11:29+1000. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |
