@@ -17,7 +17,7 @@
   fhir:ImplementationGuide.name [ fhir:value "PatientReportedOutcomes21CFR11"];
   fhir:ImplementationGuide.title [ fhir:value "Patient Reported Outcomes 21 CFR Part 11 Extension"];
   fhir:ImplementationGuide.status [ fhir:value "draft"];
-  fhir:ImplementationGuide.date [ fhir:value "2020-05-20T11:29:21+10:00"^^xsd:dateTime];
+  fhir:ImplementationGuide.date [ fhir:value "2020-06-03T14:48:38+10:00"^^xsd:dateTime];
   fhir:ImplementationGuide.publisher [ fhir:value "Boston Children's Hospital - Computational Health Informatics Program (CHIP)"];
   fhir:ImplementationGuide.contact [
      fhir:index 0;

@@ -3,7 +3,7 @@
   "name": "PatientReportedOutcomes21CFR11",
   "package-id": "hl7.fhir.us.patient-reported-outcomes-21cfr11",
   "ig-ver": "0.2.1",
-  "date": "Wed, 20 May, 2020 11:29:21 +1000",
+  "date": "Wed, 03 Jun, 2020 14:48:38 +1000",
   "errs": 2,
   "warnings": 0,
   "hints": 0,

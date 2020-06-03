@@ -258,6 +258,10 @@ Without exposing the client’s private key (which would allow impersonation).</
 
 <p>Non-repudiation is a characteristic of PKI systems where content that is digitally signed using a private key can be matched to a public certificate to give a high confidence that the resource was signed by an individual or system with sole possession of the private key. This characteristic usually relies on a mechanism or contractual undertaking by the signer to keep their private key safe and only access it for purposes of proving provenance or assent.</p>
 
+<h3 id="canonical-json">Canonical JSON</h3>
+
+<p>The IETF’s <a href="https://tools.ietf.org/html/rfc7159">JSON specification</a> does not describe a JSON representation that can be compared. In brief, <a href="https://gibson042.github.io/canonicaljson-spec/">canonical JSON</a> representation is JSON without whitespace, and with keys and arrays ordered in a defined way. Two JSON objects, converted to canonical form, can be compared for equivalence which makes this form useful for comparison and for digital signatures.</p>
+
 <h3 id="electronic-data-capture-edc">Electronic Data Capture (EDC)</h3>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>An electronic data capture (EDC) system is a computerized system designed for the collection of clinical data in electronic format for use mainly in human clinical trials. 
@@ -297,14 +301,14 @@ Without exposing the client’s private key (which would allow impersonation).</
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, May 20, 2020 11:29+1000">2020-05-20</span>
+               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, Jun 3, 2020 14:48+1000">2020-06-03</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.2.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, May 20, 2020 11:29+1000. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, Jun 3, 2020 14:48+1000. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

@@ -351,7 +351,7 @@ The two main architectural approaches proposed in U24 are:</p>
   <li><em>Server stores resource &amp; assigns ID</em> This is the FHIR server making the client’s request change (adding, changing or deleting a resource) and fixing up any versions or unique IDs according to the server’s internal state and implentation.</li>
   <li><em>Server stores read-only action and Resource in journal</em> The server sends a copy of the persisted resource to a cryptographic journal.</li>
   <li><em>Response with server’s fixed-up Resource</em> The HTTP response from the server returns a full copy of the resource after the sever has made any server-required changes to the Resource to add versions, IDs or any other metadata.</li>
-  <li><em>Client verifies and generates signature from canonical server response</em> The client extracts the Resource from the HTTP response and compares a canonical version of the response with the expected value intended in the original FHIR transaction. To do this the client would need to canonicalise the JSON or XML of the original and returned resources and compare to see if these are equivalent. The client should not consider the server-assigned ID, versions or other metadata when it compares the original or returned transactions.
+  <li><em>Client verifies and generates signature from a <a href="https://gibson042.github.io/canonicaljson-spec/">canonical JSON version</a> of the server response</em> The client receives the Resource from the HTTP response and compares a canonical version of the response with the value sent in the original FHIR transaction. To do this the client would need to “canonicalise” the JSON or XML of the original and returned resources and compare to see if these are equivalent. The client should not consider the server-assigned ID, versions or other metadata when it compares the original or returned transactions.
     <ul>
       <li>If there is a difference between the sent and received resource then the client should not proceed with signing the returned resource, and should alert the client or operator that the server has offered a different resource to sign than the one expected.</li>
       <li>If the returned resource is the same, then the client shall generate a signature for the entire returned resource including the ID, versions and metadata.<br />
@@ -385,8 +385,9 @@ The client then generates a Provenance resource containing the identity of the c
 <p>The following diagram illustrates the conventional (traditional) approach to implementing a PRO Electronic Data Collection system and data warehouse with 21 CFR 11 compliance.</p>
 
 <p>the study participants (1) submit data to an EDC/warehouse (2). The identity of each study participant is assuree with an enrolment (3) and identity management procedure (6). Authorized personnel store the participant’s contact information (4). All data changes are captured in an audit trail (5). 
-Determining adherence to 21 CFR Part 11 (7) requires the Agency’s inspector to review governance policies and procedures (6) as well as audit information and personnel training and management necessary to deter data falsification (5).
-This approach places trust in personnel and systems within the study. 21 CFR Part 11.10(j) prioritizes deterrence of record and identity falsification over protection from these classes of insider attack. Data entered by participants is stored in the study warehouse, but there is no means to determine that the data stored has not been tampered with, or otherwise corrupted, since it was provided by the participant as required by 21 CFR Part 11.10(a).</p>
+Determining adherence to 21 CFR Part 11 (7) requires the Agency’s inspector to review governance policies and procedures (6) as well as audit information and personnel training and management necessary to deter data falsification (5).</p>
+
+<p>This approach places trust in personnel and systems within the study. 21 CFR Part 11.10(j) prioritizes deterrence of record and identity falsification over protection from these classes of insider attack. Data entered by participants is stored in the study warehouse, but there is no means to determine that the data stored has not been tampered with, or otherwise corrupted, since it was provided by the participant as required by 21 CFR Part 11.10(a).</p>
 
 <!-- all this Bootstrap html for getting an narrow image to fit nicely in text - 640 pix wide -->
 
@@ -520,14 +521,14 @@ Provenance resource for that DocumentRefence with a reference to the client’s 
 
 <h4 id="automated-client-identity-certificate">Automated Client Identity Certificate</h4>
 
-<p>To provide a flexible and standards-based mechanism for signing identity certificates a simple OAuth2-protected certificate-signing REST service (see <a href="guidance.html">Guidance</a>), or an adaptation of the <a href="https://tools.ietf.org/html/rfc8555">ACME</a> protocol is recommended.</p>
+<p>To provide a flexible and standards-based mechanism for signing identity certificates a simple OAuth2-protected certificate-signing REST service (see <a href="guidance.html">Guidance</a>), or an adaptation of the <a href="https://tools.ietf.org/html/rfc8555">ACME</a> protocol that integrates with the FHIR security profile is recommended.</p>
 
 <p><a href="https://tools.ietf.org/html/rfc8555">ACME</a> is a protocol designed largely for automating the signing of certificates for use to secure hosts in Internet domains and individual web hosts. There is no direct means in the standard to automate the signing request and proof provision required to issue an identity certificate, but the intent to be a general and extensible protocol is mentioned:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Note that while ACME is defined with enough flexibility to handle different types of identifiers in principle, the primary use case addressed by this document is the case where domain names are used as identifiers.
 </code></pre></div></div>
 
-<p>The ACME API is a useful framework for a 21 CFR 11 system where FHIR clients need to perform certificate orders, but it has a couple of assumptions that can cause complexity:</p>
+<p>The ACME API is a useful conceptual framework for a 21 CFR 11 system where FHIR clients need to perform certificate orders, but it has a couple of assumptions that can cause complexity:</p>
 
 <ol>
   <li>ACME assumes it will operate as a standalone server with its own registration and authentication mechanism that is OAuth-like in that each client request must provide a nonce. This parallels and duplicates functionality an OIDC or OAuth 2.0 implementation could provide.</li>
@@ -663,8 +664,21 @@ For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
 
 <h3 id="identity-certificate-documentreference">Identity Certificate DocumentReference</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[TBD]
-</code></pre></div></div>
+<p><code class="highlighter-rouge">
+{
+  "resourceType": "DocumentReference",
+  "subject": {
+    "reference": "Patient/4952"
+  },
+  "description": "Certificate for Patient/4952/_history/1",
+  "content": [
+    {
+      "attachment": {
+        "data": "MIIC1KADAgECAgEBMA0GCSqGSIb3DQEBBQUAMIGsMR8wHQYJKoZIhvcNAQkBFhBjYS10ZXN0QGNoaXAub3JnMRkwFwYDVQQDDBBjYS10ZXN0QGNoaXAub3JnMQ8wDQYDVQQLDAZJSEwgQ0ExEDAOBgNVBAoMB0NISVAgQ0ExEjAQBgNVBAcMCUJyb29rbGluZTEqMCgGA1UECAwhVGhlIENvbW1vbndlYWx0aCBvZiBNYXNzYWNodXNldHRzMQswCQYDVQQGEwJVUzAeFw0yMDA2MDMwMzM4NTdaFw0zMDA2MDEwMzM4NTdaMIHFMQswCQYDVQQGEwJVUzEmMCQGA1UECAwdQ29tbW9ud2VhbHRoIG9mIE1hc3NhY2h1c2V0dHMxDzANBgNVBAcMBkJvc3RvbjEmMCQGA1UECgwdSW50ZWxsaWdlbnQgSGVhbHRoIExhYm9yYXRvcnkxDTALBgNVBAsMBENISVAxDTALBgNVBAMMBHRlc3QxNzA1BgkqhkiG9w0BCQEWKGNocmlzdG9waGVyLmdlbnRsZUBjaGlsZHJlbnMuaGFydmFyZC5lZHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDgQwELuDuUD7SNfHgPJXVgjX1v2P1XCFK7MhRiUZeUZ7qAxTo3R5MckZgwE6d0Y5ToAAnIMHmtYM8AGFierV9JHPgjtGGVWpzeJx9m3Eys9o1S0NOqyP19LQCmhtjKGVSm9vgfIjWLbDtbDrZuxoF82nHzg6tqSyhceSFbuBa/gzOlPTZ3Ly3b8KpMijDPzarcvBUKZm4vyqXMmF+BS/HiAJ6EsUby+mdQTG84UYsULa970rXfaZHuBqRo99d9E2AfX2zKvOlMlSuSjbzmKdm4mJmkicnYRubZBnLYdytLBEePebNdRv+VpZPjKr0bnBq8jUNbBaAF7CrQiy2sF1BRAgMBAAE="
+      }
+    }
+  ]
+}</code></p>
 
 <h3 id="cryptographic-journaling-and-auditing">Cryptographic Journaling and Auditing</h3>
 
@@ -710,14 +724,14 @@ For 21 CFR Part 11 compliance, a Provenance resource should provide:</p>
    <div class="inner-wrapper">
     <p>
 
-               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, May 20, 2020 11:29+1000">2020-05-20</span>
+               IG &#169;  <a style="color: #81BEF7" href="https://www.childrenshospital.org/chip"/>Boston Children's Hospital - Computational Health Informatics Program (CHIP)</a>.  Package hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 based on <a style="color: #81BEF7" href="http://hl7.org/fhir/">FHIR 4.0.1</a>. Generated <span title="Wed, Jun 3, 2020 14:48+1000">2020-06-03</span>
        <br/>
        <span style="color: #FFFF77">
 
 <!--
       PatientReportedOutcomes21CFR11 
            Version: 0.2.1
-         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, May 20, 2020 11:29+1000. -->
+         &reg;&copy;   <a style="color: #81BEF7" href="http://hl7.org/fhir/index.html">FHIR Version: 4.0.1</a> generated on Wed, Jun 3, 2020 14:48+1000. -->
 
       Links: 
       <a style="color: #81BEF7" href="toc.html">Table of Contents</a> |

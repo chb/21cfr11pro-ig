@@ -36,6 +36,10 @@ This is a private key and the corresponding ID certificate. This can be a misnom
 
 Non-repudiation is a characteristic of PKI systems where content that is digitally signed using a private key can be matched to a public certificate to give a high confidence that the resource was signed by an individual or system with sole possession of the private key. This characteristic usually relies on a mechanism or contractual undertaking by the signer to keep their private key safe and only access it for purposes of proving provenance or assent.
 
+### Canonical JSON
+
+The IETF's [JSON specification](https://tools.ietf.org/html/rfc7159) does not describe a JSON representation that can be compared. In brief, [canonical JSON](https://gibson042.github.io/canonicaljson-spec/) representation is JSON without whitespace, and with keys and arrays ordered in a defined way. Two JSON objects, converted to canonical form, can be compared for equivalence which makes this form useful for comparison and for digital signatures.
+
 ### Electronic Data Capture (EDC) 
 
     An electronic data capture (EDC) system is a computerized system designed for the collection of clinical data in electronic format for use mainly in human clinical trials. 

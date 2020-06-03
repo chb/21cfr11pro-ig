@@ -84,7 +84,7 @@ The figure above shows a FHIR client which could be embedded in an app or a gate
 2. *Server stores resource & assigns ID* This is the FHIR server making the client's request change (adding, changing or deleting a resource) and fixing up any versions or unique IDs according to the server's internal state and implentation. 
 3. *Server stores read-only action and Resource in journal* The server sends a copy of the persisted resource to a cryptographic journal.
 4. *Response with server's fixed-up Resource* The HTTP response from the server returns a full copy of the resource after the sever has made any server-required changes to the Resource to add versions, IDs or any other metadata.
-5. *Client verifies and generates signature from canonical server response* The client extracts the Resource from the HTTP response and compares a canonical version of the response with the expected value intended in the original FHIR transaction. To do this the client would need to canonicalise the JSON or XML of the original and returned resources and compare to see if these are equivalent. The client should not consider the server-assigned ID, versions or other metadata when it compares the original or returned transactions. 
+5. *Client verifies and generates signature from a [canonical JSON version](https://gibson042.github.io/canonicaljson-spec/) of the server response* The client receives the Resource from the HTTP response and compares a canonical version of the response with the value sent in the original FHIR transaction. To do this the client would need to "canonicalise" the JSON or XML of the original and returned resources and compare to see if these are equivalent. The client should not consider the server-assigned ID, versions or other metadata when it compares the original or returned transactions. 
   * If there is a difference between the sent and received resource then the client should not proceed with signing the returned resource, and should alert the client or operator that the server has offered a different resource to sign than the one expected.
   * If the returned resource is the same, then the client shall generate a signature for the entire returned resource including the ID, versions and metadata.  
 The client then generates a Provenance resource containing the identity of the client, the thumbprint of the client's current identity certificate, date and timestamp information, and a reference to the Resource and resource representation that the Provenance resource refers to.
@@ -116,6 +116,7 @@ The following diagram illustrates the conventional (traditional) approach to imp
 
 the study participants (1) submit data to an EDC/warehouse (2). The identity of each study participant is assuree with an enrolment (3) and identity management procedure (6). Authorized personnel store the participant’s contact information (4). All data changes are captured in an audit trail (5). 
 Determining adherence to 21 CFR Part 11 (7) requires the Agency’s inspector to review governance policies and procedures (6) as well as audit information and personnel training and management necessary to deter data falsification (5).
+
 This approach places trust in personnel and systems within the study. 21 CFR Part 11.10(j) prioritizes deterrence of record and identity falsification over protection from these classes of insider attack. Data entered by participants is stored in the study warehouse, but there is no means to determine that the data stored has not been tampered with, or otherwise corrupted, since it was provided by the participant as required by 21 CFR Part 11.10(a).
 
 
@@ -160,8 +161,6 @@ In this architecture transactions from the EDC have to be imported to FHIR in a 
 
 Use of a gateway model will result in Provenance being asserted by only the number of actor identities as there are gateways to the FHIR server. The gateway can add the original EDC's view of the original PRO subject's identity, and the role it plays. 
 
-
-
 #### 21 CFR 11 PRO FHIR EDC and Warehousing 
 
 The diagram below shows a simplified context diagram for a PRO-collecting app that is a FHIR client that communicates securely with a FHIR server. In this entirely-FHIR system each patient who reports PRO data can have their own secret key and identity certificate. 
@@ -204,15 +203,15 @@ Provenance resource for that DocumentRefence with a reference to the client’s 
 
 #### Automated Client Identity Certificate 
 
-To provide a flexible and standards-based mechanism for signing identity certificates a simple OAuth2-protected certificate-signing REST service (see [Guidance](guidance.html)), or an adaptation of the [ACME](https://tools.ietf.org/html/rfc8555) protocol is recommended.
+To provide a flexible and standards-based mechanism for signing identity certificates a simple OAuth2-protected certificate-signing REST service (see [Guidance](guidance.html)), or an adaptation of the [ACME](https://tools.ietf.org/html/rfc8555) protocol that integrates with the FHIR security profile is recommended.
 
 [ACME](https://tools.ietf.org/html/rfc8555) is a protocol designed largely for automating the signing of certificates for use to secure hosts in Internet domains and individual web hosts. There is no direct means in the standard to automate the signing request and proof provision required to issue an identity certificate, but the intent to be a general and extensible protocol is mentioned:
 
     Note that while ACME is defined with enough flexibility to handle different types of identifiers in principle, the primary use case addressed by this document is the case where domain names are used as identifiers.
 
-The ACME API is a useful framework for a 21 CFR 11 system where FHIR clients need to perform certificate orders, but it has a couple of assumptions that can cause complexity:
+The ACME API is a useful conceptual framework for a 21 CFR 11 system where FHIR clients need to perform certificate orders, but it has a couple of assumptions that can cause complexity:
 
-  1.  ACME assumes it will operate as a standalone server with its own registration and authentication mechanism that is OAuth-like in that each client request must provide a nonce. This parallels and duplicates functionality an OIDC or OAuth 2.0 implementation could provide.
+  1. ACME assumes it will operate as a standalone server with its own registration and authentication mechanism that is OAuth-like in that each client request must provide a nonce. This parallels and duplicates functionality an OIDC or OAuth 2.0 implementation could provide.
   2.  The standard flow for ordering a certificate includes a requirement for a client to poll until a set of validation criteria is met, but these indeterminate duration tests can be omitted from the protocol for identity.
 
 As a 21 CFR 11-compliant FHIR server adhering to the PRO Implementation Guide already has an OIDC
@@ -333,8 +332,20 @@ When a signature is provided it is important to note a known corresponding ID ce
 ### Identity Certificate DocumentReference
 
 ```
-[TBD]
-```
+{
+  "resourceType": "DocumentReference",
+  "subject": {
+    "reference": "Patient/4952"
+  },
+  "description": "Certificate for Patient/4952/_history/1",
+  "content": [
+    {
+      "attachment": {
+        "data": "MIIC1KADAgECAgEBMA0GCSqGSIb3DQEBBQUAMIGsMR8wHQYJKoZIhvcNAQkBFhBjYS10ZXN0QGNoaXAub3JnMRkwFwYDVQQDDBBjYS10ZXN0QGNoaXAub3JnMQ8wDQYDVQQLDAZJSEwgQ0ExEDAOBgNVBAoMB0NISVAgQ0ExEjAQBgNVBAcMCUJyb29rbGluZTEqMCgGA1UECAwhVGhlIENvbW1vbndlYWx0aCBvZiBNYXNzYWNodXNldHRzMQswCQYDVQQGEwJVUzAeFw0yMDA2MDMwMzM4NTdaFw0zMDA2MDEwMzM4NTdaMIHFMQswCQYDVQQGEwJVUzEmMCQGA1UECAwdQ29tbW9ud2VhbHRoIG9mIE1hc3NhY2h1c2V0dHMxDzANBgNVBAcMBkJvc3RvbjEmMCQGA1UECgwdSW50ZWxsaWdlbnQgSGVhbHRoIExhYm9yYXRvcnkxDTALBgNVBAsMBENISVAxDTALBgNVBAMMBHRlc3QxNzA1BgkqhkiG9w0BCQEWKGNocmlzdG9waGVyLmdlbnRsZUBjaGlsZHJlbnMuaGFydmFyZC5lZHUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDgQwELuDuUD7SNfHgPJXVgjX1v2P1XCFK7MhRiUZeUZ7qAxTo3R5MckZgwE6d0Y5ToAAnIMHmtYM8AGFierV9JHPgjtGGVWpzeJx9m3Eys9o1S0NOqyP19LQCmhtjKGVSm9vgfIjWLbDtbDrZuxoF82nHzg6tqSyhceSFbuBa/gzOlPTZ3Ly3b8KpMijDPzarcvBUKZm4vyqXMmF+BS/HiAJ6EsUby+mdQTG84UYsULa970rXfaZHuBqRo99d9E2AfX2zKvOlMlSuSjbzmKdm4mJmkicnYRubZBnLYdytLBEePebNdRv+VpZPjKr0bnBq8jUNbBaAF7CrQiy2sF1BRAgMBAAE="
+      }
+    }
+  ]
+}```
 
 ### Cryptographic Journaling and Auditing
 

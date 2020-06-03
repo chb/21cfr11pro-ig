@@ -2,8 +2,8 @@
 =========================================
 
 err = 2, warn = 0, info = 0
-IG Publisher Version: v1.0.34-SNAPSHOT Out of date - current version is v1.0.94-SNAPSHOT
-Generated Wed May 20 11:29:34 AEST 2020. FHIR version 4.0.1 for hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 (canonical = https://chb.github.io/21cfr11pro-ig/)
+IG Publisher Version: v1.0.34-SNAPSHOT Out of date - current version is v1.0.99-SNAPSHOT
+Generated Wed Jun 03 14:48:53 AEST 2020. FHIR version 4.0.1 for hl7.fhir.us.patient-reported-outcomes-21cfr11#0.2.1 (canonical = https://chb.github.io/21cfr11pro-ig/)
 
  Build Errors : 18 / 0
  /Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/resources/capabilitystatement-server : 0 / 0
