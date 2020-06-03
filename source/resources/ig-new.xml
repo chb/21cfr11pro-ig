@@ -15,7 +15,7 @@
     <valueString value="/Users/chrisg/crg-bch/projects/fda-u24/20200519-21cfr11-ig-github/21cfr11pro-ig/source/pages"/>
   </extension>
   <url value="http://hl7.org/fhir/us/patient-reported-outcomes/ImplementationGuide/ig"/>
-  <version value="0.2.1"/>
+  <version value="0.2.2"/>
   <name value="PatientReportedOutcomes21CFR11"/>
   <title value="Patient Reported Outcomes 21 CFR Part 11 Extension"/>
   <status value="draft"/>
